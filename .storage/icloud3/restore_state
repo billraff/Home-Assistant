@@ -1,9 +1,9 @@
 {
   "profile": {
     "version": 0,
-    "last_update": "2024-11-18 08:13:05",
-    "last_commit": "2024-11-18 08:13:05",
-    "recds_changed": 4
+    "last_update": "2024-11-18 08:15:00",
+    "last_commit": "2024-11-18 08:15:10",
+    "recds_changed": 1
   },
   "devices": {
     "device_tracker_iphone15": {
@@ -690,14 +690,14 @@
       }
     },
     "judes_iphone": {
-      "last_update": "2024-11-18 08:13:05",
+      "last_update": "2024-11-18 08:15:00",
       "sensors": {
         "device_tracker_state": "home",
         "name": "Jude’s iPhone (judes_iphone)",
         "entity_picture": "/local/jude.png",
         "badge": "Ranch",
         "low_power_mode": false,
-        "info": "Requesting iCloud Location Update",
+        "info": "Ranch-@8:27a, MobApp LastUpdate-23.8 hrs ago",
         "alert": "",
         "battery": 100,
         "battery_status": "Charged",
@@ -709,24 +709,24 @@
         "mobapp_battery_info": "70@7:58:49a, NotCharging",
         "battery_info": "(iCloud) 100@3:37:22a, Charged",
         "gps": [
+          30.553632791941062,
+          -97.7448465296253
+        ],
+        "last_gps": [
           30.553655587737698,
           -97.74485246914446
         ],
-        "last_gps": [
-          30.553653247755758,
-          -97.74484542781946
-        ],
-        "latitude": 30.553655587737698,
-        "longitude": -97.74485246914446,
-        "gps_accuracy": 5,
+        "latitude": 30.553632791941062,
+        "longitude": -97.7448465296253,
+        "gps_accuracy": 4,
         "altitude": 0.0,
         "vertical_accuracy": 0,
         "location_source": "iCloud",
         "nearby_device_used": "",
-        "trigger": "iCloud@7:58:02a",
-        "last_located_date/time": "2024-11-18 07:58:02",
-        "last_located_time": "7:58:02a",
-        "last_located": "7:58:02a",
+        "trigger": "iCloud@8:13:22a",
+        "last_located_date/time": "2024-11-18 08:13:22",
+        "last_located_time": "8:13:22a",
+        "last_located": "8:13:22a",
         "dev_id": "judes_iphone",
         "raw_model": "",
         "model": "",
@@ -735,41 +735,41 @@
         "source_type": "gps",
         "device_status": "Online/200",
         "tracking": "",
-        "distance_to": " IPhone15--9.6ft (7:39a)",
+        "distance_to": " IPhone15--18.1ft (8:09a)",
         "distance_to_other_devices": {
           "bills_iphone15pro": [
-            2.923,
+            5.513,
             4,
-            1731938282,
-            "9.6ft (7:58a)"
+            1731938910,
+            "18.1ft (8:09a)"
           ]
         },
-        "distance_to_other_devices_datetime": "2024-11-18 07:58:02",
+        "distance_to_other_devices_datetime": "2024-11-18 08:13:22",
         "from_zone": "home",
         "interval": "15 mins",
-        "next_update_date/time": "2024-11-18 08:13:05",
-        "next_update_time": "8:13:05a",
-        "next_update": "8:13:05a",
-        "last_updated_date/time": "2024-11-18 07:58:05",
-        "last_update_time": "07:58:05",
-        "last_update": "07:58:05",
+        "next_update_date/time": "2024-11-18 08:28:25",
+        "next_update_time": "8:28:25a",
+        "next_update": "8:28:25a",
+        "last_updated_date/time": "2024-11-18 08:13:25",
+        "last_update_time": "08:13:25",
+        "last_update": "08:13:25",
         "travel_time": "0 min",
         "travel_time_min": "0 min",
         "travel_time_hhmm": "00:00",
         "arrival_time": "@8:27a",
         "zone_distance": 0.0,
-        "distance (meters)": 11.144,
-        "distance_to_zone_edge (meters)": 13.856,
+        "distance (meters)": 13.733,
+        "distance_to_zone_edge (meters)": 11.267,
         "home_distance": 0.0,
         "max_distance": 0.0,
         "went_3km": "false",
         "waze_distance": 0.0,
         "waze_method": "×Paused",
-        "calc_distance": 0.00692455,
+        "calc_distance": 0.00853327,
         "dir_of_travel": "inHomeZone",
-        "moved_distance": 0.000724,
-        "moved_from": "2024-11-18 07:42:41",
-        "moved_to": "2024-11-18 07:58:02",
+        "moved_distance": 0.002591,
+        "moved_from": "2024-11-18 07:58:02",
+        "moved_to": "2024-11-18 08:13:22",
         "zone": "home",
         "zone_dname": "Ranch",
         "zone_fname": "Ranch",
@@ -780,7 +780,7 @@
         "last_zone_fname": "Ranch",
         "last_zone_name": "Home",
         "last_zone_changed": "2024-11-17 07:24:30",
-        "last_located_secs": 1731938282
+        "last_located_secs": 1731939202
       },
       "mobapp": {
         "state": "home",
@@ -805,15 +805,15 @@
         "home": {
           "from_zone": "home",
           "interval": "15 mins",
-          "last_located_date/time": "2024-11-18 07:58:02",
-          "last_located_time": "7:58:02a",
-          "last_located": "7:58:02a",
-          "next_update_date/time": "2024-11-18 08:13:05",
-          "next_update_time": "8:13:05a",
-          "next_update": "8:13:05a",
-          "last_updated_date/time": "2024-11-18 07:58:05",
-          "last_update_time": "07:58:05",
-          "last_update": "07:58:05",
+          "last_located_date/time": "2024-11-18 08:13:22",
+          "last_located_time": "8:13:22a",
+          "last_located": "8:13:22a",
+          "next_update_date/time": "2024-11-18 08:28:25",
+          "next_update_time": "8:28:25a",
+          "next_update": "8:28:25a",
+          "last_updated_date/time": "2024-11-18 08:13:25",
+          "last_update_time": "08:13:25",
+          "last_update": "08:13:25",
           "travel_time": "0 min",
           "travel_time_min": "0 min",
           "travel_time_hhmm": "00:00",
@@ -821,19 +821,19 @@
           "distance": 0.0,
           "max_distance": 0.0,
           "zone_distance": 0.0,
-          "distance (meters)": 11.144,
-          "distance_to_zone_edge (meters)": 13.856,
+          "distance (meters)": 13.733,
+          "distance_to_zone_edge (meters)": 11.267,
           "waze_distance": 0.0,
           "waze_method": "×Paused",
-          "calc_distance": 0.00692455,
+          "calc_distance": 0.00853327,
           "dir_of_travel": "inHomeZone",
-          "moved_distance": 0.00044987,
+          "moved_distance": 0.00160997,
           "zone_info": "@Ranch"
         }
       }
     },
     "bills_iphone15pro": {
-      "last_update": "2024-11-18 08:13:00",
+      "last_update": "2024-11-18 08:15:00",
       "sensors": {
         "device_tracker_state": "home",
         "name": "IPhone15 (bills_iphone15pro)",
@@ -881,10 +881,10 @@
         "distance_to": " Jude’s iPhone--9.6ft (7:58a)",
         "distance_to_other_devices": {
           "judes_iphone": [
-            2.923,
+            5.513,
             4,
-            1731938282,
-            "9.6ft (7:58a)"
+            1731938910,
+            "18.1ft (8:09a)"
           ]
         },
         "distance_to_other_devices_datetime": "2024-11-18 08:08:30",
