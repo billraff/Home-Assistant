@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "timer",
+  "data": {
+    "items": [
+      {
+        "id": "30_minute",
+        "name": "30 Minute",
+        "duration": "0:30:00",
+        "icon": "mdi:clock-digital",
+        "restore": false
+      }
+    ]
+  }
+}

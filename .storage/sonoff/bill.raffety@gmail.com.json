@@ -1,0 +1,389 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "sonoff/bill.raffety@gmail.com.json",
+  "data": [
+    {
+      "name": "Game Rm Sonoff",
+      "deviceid": "1001712e46",
+      "apikey": "b20d7abd-bdd6-474b-bc4e-211a87522203",
+      "extra": {
+        "uiid": 32,
+        "description": "20220509002",
+        "brandId": "5c4c1aee3a7d24c7100be054",
+        "apmac": "d0:27:02:e2:59:dd",
+        "mac": "d0:27:02:e2:59:dc",
+        "ui": "功率检测插座过载告警",
+        "modelInfo": "5c700f8dcc248c47441fd23a",
+        "model": "PSC-B67-GL",
+        "manufacturer": "深圳松诺技术有限公司",
+        "staMac": "48:3F:DA:28:B4:BC"
+      },
+      "brandName": "SONOFF",
+      "brandLogo": "https://us-ota.coolkit.cc/logo/q62PevoglDNmwUJ9oPE7kRrpt1nL1CoA.png",
+      "showBrand": true,
+      "productModel": "S31TPB(US)",
+      "tags": {
+        "m_2203_bill": "on"
+      },
+      "devConfig": {
+        "timerCount": "16/28"
+      },
+      "settings": {
+        "opsNotify": 0,
+        "opsHistory": 1,
+        "alarmNotify": 1,
+        "wxAlarmNotify": 0,
+        "wxOpsNotify": 0,
+        "wxDoorbellNotify": 0,
+        "appDoorbellNotify": 1
+      },
+      "devGroups": [],
+      "family": {
+        "familyid": "61e41682a7e5de0008c3a05c",
+        "index": -3,
+        "members": [],
+        "roomid": "61e41682a7e5de0008c3a05b"
+      },
+      "shareTo": [],
+      "devicekey": "e103df43-920d-4220-bbff-3dd01bd6dc67",
+      "online": true,
+      "params": {
+        "bindInfos": {},
+        "version": 8,
+        "demNextFetchTime": 1731906000000,
+        "only_device": {
+          "ota": "success"
+        },
+        "hundredDaysKwh": "get",
+        "sledOnline": "on",
+        "ssid": "Network not found",
+        "bssid": "00:00:00:00:00:00",
+        "fwVersion": "3.6.0",
+        "staMac": "48:3F:DA:28:B4:BC",
+        "rssi": -17,
+        "init": 1,
+        "alarmType": "pcv",
+        "alarmVValue": [
+          -1,
+          -1
+        ],
+        "alarmCValue": [
+          -1,
+          -1
+        ],
+        "alarmPValue": [
+          -1,
+          -1
+        ],
+        "switch": "on",
+        "startup": "stay",
+        "pulse": "off",
+        "pulseWidth": 500,
+        "power": "4.36",
+        "voltage": "122.47",
+        "current": "0.11",
+        "oneKwh": "stop",
+        "uiActive": 60,
+        "timeZone": -6,
+        "rstReason": 0,
+        "exccause": 0,
+        "epc1": 0,
+        "epc2": 0,
+        "epc3": 0,
+        "excvaddr": 0,
+        "depc": 0
+      },
+      "isSupportGroup": true,
+      "isSupportedOnMP": true,
+      "isSupportChannelSplit": false,
+      "deviceFeature": {}
+    },
+    {
+      "name": "Xmas Tree",
+      "deviceid": "1001712e8d",
+      "apikey": "b20d7abd-bdd6-474b-bc4e-211a87522203",
+      "extra": {
+        "uiid": 32,
+        "description": "20220509002",
+        "brandId": "5c4c1aee3a7d24c7100be054",
+        "apmac": "d0:27:02:e2:5a:6b",
+        "mac": "d0:27:02:e2:5a:6a",
+        "ui": "功率检测插座过载告警",
+        "modelInfo": "5c700f8dcc248c47441fd23a",
+        "model": "PSC-B67-GL",
+        "manufacturer": "深圳松诺技术有限公司",
+        "staMac": "48:3F:DA:28:25:55"
+      },
+      "brandName": "SONOFF",
+      "brandLogo": "https://us-ota.coolkit.cc/logo/q62PevoglDNmwUJ9oPE7kRrpt1nL1CoA.png",
+      "showBrand": true,
+      "productModel": "S31TPB(US)",
+      "tags": {
+        "m_2203_bill": "on"
+      },
+      "devConfig": {
+        "timerCount": "16/28"
+      },
+      "settings": {
+        "opsNotify": 0,
+        "opsHistory": 1,
+        "alarmNotify": 1,
+        "wxAlarmNotify": 0,
+        "wxOpsNotify": 0,
+        "wxDoorbellNotify": 0,
+        "appDoorbellNotify": 1
+      },
+      "devGroups": [],
+      "family": {
+        "familyid": "61e41682a7e5de0008c3a05c",
+        "index": -2,
+        "members": [],
+        "roomid": "61e41682a7e5de0008c3a059"
+      },
+      "shareTo": [],
+      "devicekey": "eba2b6a9-1ce0-4532-bfff-c68baa719a3f",
+      "online": true,
+      "params": {
+        "bindInfos": {},
+        "version": 8,
+        "only_device": {
+          "ota": "success"
+        },
+        "sledOnline": "on",
+        "ssid": "Network not found",
+        "bssid": "00:00:00:00:00:00",
+        "fwVersion": "3.6.0",
+        "staMac": "48:3F:DA:28:25:55",
+        "rssi": -20,
+        "init": 1,
+        "alarmType": "pcv",
+        "alarmVValue": [
+          -1,
+          -1
+        ],
+        "alarmCValue": [
+          -1,
+          -1
+        ],
+        "alarmPValue": [
+          -1,
+          -1
+        ],
+        "switch": "on",
+        "startup": "on",
+        "pulse": "off",
+        "pulseWidth": 500,
+        "power": "0.00",
+        "voltage": "123.00",
+        "current": "0.00",
+        "oneKwh": "stop",
+        "uiActive": 60,
+        "timeZone": -5,
+        "hundredDaysKwh": "get",
+        "demNextFetchTime": 1731906000000,
+        "rstReason": 0,
+        "exccause": 0,
+        "epc1": 0,
+        "epc2": 0,
+        "epc3": 0,
+        "excvaddr": 0,
+        "depc": 0
+      },
+      "isSupportGroup": true,
+      "isSupportedOnMP": true,
+      "isSupportChannelSplit": false,
+      "deviceFeature": {}
+    },
+    {
+      "name": "Dryer",
+      "deviceid": "100153b7f9",
+      "apikey": "b20d7abd-bdd6-474b-bc4e-211a87522203",
+      "extra": {
+        "uiid": 32,
+        "description": "20211020009",
+        "brandId": "5c4c1aee3a7d24c7100be054",
+        "apmac": "d0:27:02:a7:6d:43",
+        "mac": "d0:27:02:a7:6d:42",
+        "ui": "功率检测插座过载告警",
+        "modelInfo": "5c700f8dcc248c47441fd23a",
+        "model": "PSC-B67-GL",
+        "manufacturer": "深圳松诺技术有限公司",
+        "staMac": "C4:5B:BE:E4:9C:DE"
+      },
+      "brandName": "SONOFF",
+      "brandLogo": "https://us-ota.coolkit.cc/logo/q62PevoglDNmwUJ9oPE7kRrpt1nL1CoA.png",
+      "showBrand": true,
+      "productModel": "S31TPB(US)",
+      "tags": {
+        "m_2203_bill": "on"
+      },
+      "devConfig": {
+        "timerCount": "16/28"
+      },
+      "settings": {
+        "opsNotify": 0,
+        "opsHistory": 1,
+        "alarmNotify": 1,
+        "wxAlarmNotify": 0,
+        "wxOpsNotify": 0,
+        "wxDoorbellNotify": 0,
+        "appDoorbellNotify": 1
+      },
+      "devGroups": [],
+      "family": {
+        "familyid": "61e41682a7e5de0008c3a05c",
+        "index": -1,
+        "members": []
+      },
+      "shareTo": [],
+      "devicekey": "c9e765fe-1a30-49d0-8d73-e31fcaf742ce",
+      "online": true,
+      "params": {
+        "bindInfos": {},
+        "version": 8,
+        "only_device": {
+          "ota": "success"
+        },
+        "sledOnline": "on",
+        "ssid": "Network not found",
+        "bssid": "00:00:00:00:00:00",
+        "fwVersion": "3.6.0",
+        "staMac": "C4:5B:BE:E4:9C:DE",
+        "rssi": -55,
+        "init": 1,
+        "alarmType": "pcv",
+        "alarmVValue": [
+          -1,
+          -1
+        ],
+        "alarmCValue": [
+          -1,
+          -1
+        ],
+        "alarmPValue": [
+          -1,
+          -1
+        ],
+        "switch": "on",
+        "startup": "stay",
+        "pulse": "off",
+        "pulseWidth": 500,
+        "power": "266.99",
+        "voltage": "124.50",
+        "current": "5.01",
+        "oneKwh": "stop",
+        "uiActive": 60,
+        "timeZone": -6,
+        "hundredDaysKwh": "get",
+        "demNextFetchTime": 1731906000000,
+        "rstReason": 0,
+        "exccause": 0,
+        "epc1": 0,
+        "epc2": 0,
+        "epc3": 0,
+        "excvaddr": 0,
+        "depc": 0
+      },
+      "isSupportGroup": true,
+      "isSupportedOnMP": true,
+      "isSupportChannelSplit": false,
+      "deviceFeature": {}
+    },
+    {
+      "name": "Washer",
+      "deviceid": "100153a347",
+      "apikey": "b20d7abd-bdd6-474b-bc4e-211a87522203",
+      "extra": {
+        "uiid": 32,
+        "description": "20211020009",
+        "brandId": "5c4c1aee3a7d24c7100be054",
+        "apmac": "d0:27:02:a7:43:df",
+        "mac": "d0:27:02:a7:43:de",
+        "ui": "功率检测插座过载告警",
+        "modelInfo": "5c700f8dcc248c47441fd23a",
+        "model": "PSC-B67-GL",
+        "manufacturer": "深圳松诺技术有限公司",
+        "staMac": "C4:5B:BE:E4:A4:AF"
+      },
+      "brandName": "SONOFF",
+      "brandLogo": "https://us-ota.coolkit.cc/logo/q62PevoglDNmwUJ9oPE7kRrpt1nL1CoA.png",
+      "showBrand": true,
+      "productModel": "S31TPB(US)",
+      "tags": {
+        "m_2203_bill": "on"
+      },
+      "devConfig": {
+        "timerCount": "16/28"
+      },
+      "settings": {
+        "opsNotify": 0,
+        "opsHistory": 1,
+        "alarmNotify": 1,
+        "wxAlarmNotify": 0,
+        "wxOpsNotify": 0,
+        "wxDoorbellNotify": 0,
+        "appDoorbellNotify": 1
+      },
+      "devGroups": [],
+      "family": {
+        "familyid": "61e41682a7e5de0008c3a05c",
+        "index": 0,
+        "members": []
+      },
+      "shareTo": [],
+      "devicekey": "6ca4633b-7c4c-400d-8a7b-fe28473edd92",
+      "online": true,
+      "params": {
+        "bindInfos": {},
+        "version": 8,
+        "only_device": {
+          "ota": "success"
+        },
+        "sledOnline": "on",
+        "ssid": "Network not found",
+        "bssid": "00:00:00:00:00:00",
+        "fwVersion": "3.6.0",
+        "staMac": "C4:5B:BE:E4:A4:AF",
+        "rssi": -44,
+        "init": 1,
+        "alarmType": "pcv",
+        "alarmVValue": [
+          -1,
+          -1
+        ],
+        "alarmCValue": [
+          -1,
+          -1
+        ],
+        "alarmPValue": [
+          -1,
+          -1
+        ],
+        "switch": "on",
+        "startup": "on",
+        "pulse": "off",
+        "pulseWidth": 500,
+        "power": "0.00",
+        "voltage": "124.45",
+        "current": "0.00",
+        "oneKwh": "stop",
+        "timeZone": -6,
+        "uiActive": 60,
+        "hundredDaysKwh": "get",
+        "demNextFetchTime": 1731906000000,
+        "rstReason": 0,
+        "exccause": 0,
+        "epc1": 0,
+        "epc2": 0,
+        "epc3": 0,
+        "excvaddr": 0,
+        "depc": 0
+      },
+      "isSupportGroup": true,
+      "isSupportedOnMP": true,
+      "isSupportChannelSplit": false,
+      "deviceFeature": {}
+    }
+  ]
+}

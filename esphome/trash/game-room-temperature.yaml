@@ -1,0 +1,32 @@
+esphome:
+  name: game-room-temperature
+  friendly_name: Game Room Temperature
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "FM/HeTud5gq3HXUDyAhaXGI7gxCNSUOZz8F8mk6W1PI="
+
+ota:
+  - platform: esphome
+    password: "380c9bf1d7e469d177daf8f5ffb50759"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Game-Room-Temperature"
+    password: "eNK5yCKZRgK9"
+
+captive_portal:
+    

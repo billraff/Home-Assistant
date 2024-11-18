@@ -1,0 +1,61 @@
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+# Text to speech
+media_source:
+tts:
+  - platform: google_translate
+logger:
+  default: error
+group: !include groups.yaml
+script: !include scripts.yaml
+sensor: !include sensors.yaml
+scene: !include scenes.yaml
+automation: !include automations.yaml
+template: !include templates.yaml
+frontend:
+  themes: !include_dir_merge_named themes/
+sonoff:
+  username: bill.raffety@gmail.com
+  password: Tc3iQ{1tBc&9
+  sensors: [power, current, voltage, rssi]
+  device_class: power
+homeassistant:
+  packages: !include_dir_named packages
+lock:
+  - platform: template
+    name: Front Door Lock
+    value_template: "{{ is_state('input_boolean.front_door_lock_status', 'on') }}"
+    unlock:
+      service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.front_door_lock_action_unlock
+    lock:
+      service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.front_door_lock_action_lock
+input_boolean:
+  front_door_lock_status:
+    name: Front Door Lock Status
+    initial: off
+
+  front_door_lock_action_unlock:
+    name: Front Door Lock Action Unlock
+    initial: off
+
+  front_door_lock_action_lock:
+    name: Front Door Lock Action Lock
+    initial: off
+api:
+ffmpeg:
+shell_command:
+  cleanup_snapshots: "ls -t /config/www/doorbell_notification.jpg_*.jpg | tail -n +11 | xargs rm -f"
+
+
+
+
+
+
+
+      
+      
+        

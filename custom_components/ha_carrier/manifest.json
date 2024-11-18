@@ -1,0 +1,13 @@
+{
+  "domain": "ha_carrier",
+  "name": "Carrier Infinity",
+  "codeowners": ["@dahlb"],
+  "config_flow": true,
+  "documentation": "https://github.com/dahlb/ha_carrier",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/dahlb/ha_carrier/issues",
+  "loggers": ["carrier_api"],
+  "requirements": ["carrier-api==1.13.0"],
+  "version": "1.23.0"
+}

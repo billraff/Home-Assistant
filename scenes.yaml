@@ -1,0 +1,80 @@
+- id: '1725218277817'
+  name: scoreastros
+  entities:
+    light.front_wall_south:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - None
+      - candle
+      - fire
+      - prism
+      - sparkle
+      - opal
+      - glisten
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: None
+      color_mode: color_temp
+      brightness: 28
+      color_temp_kelvin: 2141
+      color_temp: 467
+      hs_color:
+      - 30.015
+      - 87.382
+      rgb_color:
+      - 255
+      - 143
+      - 32
+      xy_color:
+      - 0.585
+      - 0.386
+      mode: normal
+      dynamics: none
+      friendly_name: Front wall south
+      supported_features: 44
+      state: 'on'
+  metadata: {}
+- id: '1725218308706'
+  name: scoreopponent
+  entities:
+    light.front_wall_north:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - None
+      - candle
+      - fire
+      - prism
+      - sparkle
+      - opal
+      - glisten
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: None
+      color_mode: color_temp
+      brightness: 18
+      color_temp_kelvin: 2141
+      color_temp: 467
+      hs_color:
+      - 30.015
+      - 87.382
+      rgb_color:
+      - 255
+      - 143
+      - 32
+      xy_color:
+      - 0.585
+      - 0.386
+      mode: normal
+      dynamics: none
+      friendly_name: Front wall north
+      supported_features: 44
+      state: 'on'
+  metadata: {}

@@ -1,0 +1,44 @@
+esphome:
+  name: proximity
+  friendly_name: proximity
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "QjxY0vYPNsyDAjq81C2/xWZQkGgvdj0oRyMJXlZETrE="
+
+ota:
+  - platform: esphome
+    password: "ca8da4dec0d58cd3b1fbebfa2cbba16d"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  manual_ip:
+    static_ip: 192.168.87.79
+    gateway: 192.168.87.1
+    subnet: 255.255.255.0
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Proximity Fallback Hotspot"
+    password: "tGGw0Il4wD18"
+
+captive_portal:
+
+sensor:
+  - platform: ultrasonic
+    trigger_pin: 4
+    echo_pin: 2
+    name: "Ultrasonic Sensor"
+    update_interval: 5s
+    
+    

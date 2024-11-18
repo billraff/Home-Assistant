@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "homekit.b8026881021fcdee444ee7a38f2c6d59.aids",
+  "data": {
+    "allocations": {
+      "input_boolean.input_boolean.front_door_lock_status": 1769025368,
+      "input_boolean.input_boolean.front_door_lock_action_unlock": 2773810905,
+      "input_boolean.input_boolean.front_door_lock_action_lock": 2374189206,
+      "input_boolean.input_boolean.manual_override": 1275189180
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace_dashboards",
+  "data": {
+    "items": [
+      {
+        "show_in_sidebar": true,
+        "icon": "mdi:music",
+        "title": "Sonos",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "dashboard-sonos",
+        "id": "dashboard_sonos"
+      },
+      {
+        "show_in_sidebar": true,
+        "icon": "mdi:lamps",
+        "title": "Lights",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "dashboard-lights",
+        "id": "dashboard_lights"
+      },
+      {
+        "show_in_sidebar": true,
+        "icon": "mdi:home",
+        "title": "Household",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "dashboard-appliances",
+        "id": "dashboard_appliances"
+      },
+      {
+        "id": "dashboard_icloud3",
+        "show_in_sidebar": true,
+        "icon": "mdi:cloud",
+        "title": "icloud3",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "dashboard-icloud3"
+      },
+      {
+        "id": "map",
+        "icon": "mdi:map",
+        "title": "Map",
+        "url_path": "map",
+        "require_admin": false,
+        "show_in_sidebar": true,
+        "mode": "storage"
+      }
+    ]
+  }
+}

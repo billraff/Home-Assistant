@@ -1,0 +1,18 @@
+
+  - trigger:
+      - platform: state
+        entity_id: media_player.port
+        attribute: media_title
+    sensor:
+      - name: Recent Tracks
+        state: "{{ now().timestamp() | timestamp_custom() }}"
+        attributes:
+          tracks: >
+            {% set current = this.attributes.get('tracks', []) %}
+            {% set new = [{
+                "artist": trigger.to_state.attributes.media_artist,
+                "title": trigger.to_state.attributes.media_title,
+                "album": trigger.to_state.attributes.media_album_name,
+                "time": now().isoformat() }]
+                if is_state('media_player.port', 'playing') else [] %}
+            {{ (new + current)[:10] }}

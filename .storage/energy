@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "energy",
+  "data": {
+    "energy_sources": [
+      {
+        "type": "grid",
+        "flow_from": [
+          {
+            "stat_energy_from": "sensor.powerwall_site_import",
+            "stat_cost": null,
+            "entity_energy_price": null,
+            "number_energy_price": null
+          }
+        ],
+        "flow_to": [
+          {
+            "stat_energy_to": "sensor.powerwall_site_export",
+            "stat_compensation": null,
+            "entity_energy_price": null,
+            "number_energy_price": null
+          }
+        ],
+        "cost_adjustment_day": 0.0
+      },
+      {
+        "type": "solar",
+        "stat_energy_from": "sensor.powerwall_solar_export",
+        "config_entry_solar_forecast": null
+      },
+      {
+        "type": "battery",
+        "stat_energy_from": "sensor.powerwall_battery_export",
+        "stat_energy_to": "sensor.powerwall_battery_import"
+      }
+    ],
+    "device_consumption": [
+      {
+        "stat_consumption": "sensor.laundry_dryer_energy"
+      },
+      {
+        "stat_consumption": "sensor.laundry_washing_machine_energy"
+      },
+      {
+        "stat_consumption": "sensor.game_room_energy"
+      }
+    ]
+  }
+}

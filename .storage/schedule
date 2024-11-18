@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "schedule",
+  "data": {
+    "items": [
+      {
+        "id": "garbage",
+        "icon": "phu:garbage-residual",
+        "name": "Garbage",
+        "thursday": [
+          {
+            "from": "07:00:00",
+            "to": "07:30:00"
+          }
+        ],
+        "sunday": [],
+        "saturday": [],
+        "tuesday": [],
+        "monday": [],
+        "wednesday": [],
+        "friday": []
+      }
+    ]
+  }
+}

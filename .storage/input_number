@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "input_number",
+  "data": {
+    "items": [
+      {
+        "min": 0.0,
+        "max": 6.0,
+        "name": "Cube - Last activated face",
+        "icon": "mdi:cube-outline",
+        "mode": "box",
+        "unit_of_measurement": "input_number.office_cube_last_activated_face",
+        "step": 1.0,
+        "id": "cube_last_activated_face"
+      },
+      {
+        "id": "steps",
+        "min": 0.0,
+        "max": 50000000.0,
+        "name": "Steps",
+        "icon": "mdi:walk",
+        "mode": "box",
+        "step": 1.0,
+        "unit_of_measurement": "steps"
+      }
+    ]
+  }
+}

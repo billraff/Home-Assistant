@@ -1,0 +1,10 @@
+# Sonos
+  sonos-background-color: var(--secondary-background-color)
+  sonos-ha-card-background-color: none
+  ha-card-box-shadow: none
+  sonos-artist-album-text-color: rgb(192, 192, 192)
+  sonos-title-color: rgb(198, 203, 210)
+  sonos-color: rgb(198, 203, 210)
+  sonos-player-section-background: rgb(32, 33, 36)
+  sonos-accent-color: rgb(198, 203, 210)
+  sonos-song-text-color: rgb(192,192,192)

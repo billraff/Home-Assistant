@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "input_button",
+  "data": {
+    "items": [
+      {
+        "id": "button_helper",
+        "name": "Button helper",
+        "icon": "mdi:battery-40"
+      }
+    ]
+  }
+}

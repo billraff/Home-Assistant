@@ -1,0 +1,4 @@
+'1657385568713':
+  alias: Text-to-Speech on Sonos
+  use_blueprint:
+    path: Talvish/sonos_say.yaml

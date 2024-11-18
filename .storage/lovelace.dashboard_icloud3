@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.dashboard_icloud3",
+  "data": {
+    "config": {
+      "title": "iCloud3",
+      "views": [
+        {
+          "title": "iCloud3",
+          "cards": [
+            {
+              "square": false,
+              "columns": 1,
+              "type": "grid",
+              "cards": [
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "show_state": true,
+                  "type": "glance",
+                  "columns": 5,
+                  "entities": [
+                    {
+                      "entity": "sensor.bills_iphone15pro_badge",
+                      "name": "Direction"
+                    },
+                    {
+                      "entity": "sensor.bills_iphone15pro_moved_distance",
+                      "name": "Moved"
+                    },
+                    {
+                      "entity": "sensor.iphone15_distance",
+                      "name": "Located"
+                    },
+                    {
+                      "entity": "sensor.iphone15_geocoded_location",
+                      "name": "LastUpdt"
+                    },
+                    {
+                      "entity": "sensor.iphone15_battery_level",
+                      "name": "Battery"
+                    }
+                  ],
+                  "title": "Bill"
+                }
+              ]
+            },
+            {
+              "square": false,
+              "columns": 1,
+              "type": "grid",
+              "cards": [
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "show_state": true,
+                  "type": "glance",
+                  "columns": 5,
+                  "entities": [
+                    {
+                      "entity": "sensor.judes_iphone_badge",
+                      "name": "Direction"
+                    },
+                    {
+                      "entity": "sensor.judes_iphone_moved_distance",
+                      "name": "Moved"
+                    },
+                    {
+                      "entity": "sensor.judes_iphone_distance",
+                      "name": "Located"
+                    },
+                    {
+                      "entity": "sensor.judes_iphone15_geocoded_location",
+                      "name": "LastUpdt"
+                    },
+                    {
+                      "entity": "sensor.judes_iphone_battery"
+                    }
+                  ],
+                  "title": "Jude",
+                  "state_color": true
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "square": false,
+              "columns": 1,
+              "cards": [
+                {
+                  "type": "custom:icloud3-event-log-card"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

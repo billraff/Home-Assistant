@@ -1,0 +1,99 @@
+2024-11-17 08:26:48.836 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration illuminance which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2024-11-17 08:26:48.838 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration spook_inverse which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2024-11-17 08:26:48.839 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration ha_carrier which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2024-11-17 08:26:48.841 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration sonoff which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2024-11-17 08:26:48.842 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration localtuya which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2024-11-17 08:26:48.842 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration teamtracker which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2024-11-17 08:26:48.844 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration huesyncbox which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2024-11-17 08:26:48.845 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration spook which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2024-11-17 08:26:48.845 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration egauge which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2024-11-17 08:26:48.847 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration sonos_cloud which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2024-11-17 08:26:48.848 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration hacs which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2024-11-17 08:26:48.849 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration watchman which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2024-11-17 08:26:48.850 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration icloud3 which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2024-11-17 08:38:43.381 ERROR (MainThread) [homeassistant.components.schlage] Error requesting schlage (bill.raffety@gmail.com) data: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2024-11-17 09:56:19.209 ERROR (MainThread) [homeassistant.components.automation.trash_can] Trash can: Error executing script. Invalid data for call_service at pos 1: required key not provided @ data['message']
+2024-11-17 09:56:19.210 ERROR (MainThread) [homeassistant.components.automation.trash_can] Error while executing automation automation.trash_can: required key not provided @ data['message']
+2024-11-17 18:59:41.494 ERROR (MainThread) [pyatv.protocols.airplay] Failed to set up remote control channel
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/pyatv/protocols/airplay/__init__.py", line 347, in _connect_rc
+    await session.connect()
+  File "/usr/local/lib/python3.12/site-packages/pyatv/protocols/airplay/ap2_session.py", line 70, in connect
+    self.connection = await http_connect(self._address, self._control_port)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pyatv/support/http.py", line 654, in http_connect
+    _, connection = await loop.create_connection(HttpConnection, address, port)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/asyncio/base_events.py", line 1122, in create_connection
+    raise exceptions[0]
+  File "/usr/local/lib/python3.12/asyncio/base_events.py", line 1104, in create_connection
+    sock = await self._connect_sock(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/asyncio/base_events.py", line 1007, in _connect_sock
+    await self.sock_connect(sock, address)
+  File "/usr/local/lib/python3.12/asyncio/selector_events.py", line 641, in sock_connect
+    return await fut
+           ^^^^^^^^^
+  File "/usr/local/lib/python3.12/asyncio/selector_events.py", line 681, in _sock_connect_cb
+    raise OSError(err, f'Connect call failed {address}')
+ConnectionRefusedError: [Errno 111] Connect call failed ('192.168.87.114', 7000)
+2024-11-17 18:59:46.548 ERROR (MainThread) [homeassistant.components.apple_tv] Failed to connect
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/usr/local/lib/python3.12/asyncio/locks.py", line 212, in wait
+    await fut
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/pyatv/support/__init__.py", line 71, in error_handler
+    return await func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pyatv/protocols/companion/protocol.py", line 119, in _setup_encryption
+    await pair_verifier.verify_credentials()
+  File "/usr/local/lib/python3.12/site-packages/pyatv/protocols/companion/auth.py", line 136, in verify_credentials
+    resp = await self.protocol.exchange_auth(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pyatv/protocols/companion/protocol.py", line 141, in exchange_auth
+    return await self._exchange_generic_opack(frame_type, data, identifier, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pyatv/protocols/companion/protocol.py", line 166, in _exchange_generic_opack
+    unpacked_object = await self._queues[identifier].wait(timeout)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pyatv/support/collections.py", line 161, in wait
+    await asyncio.wait_for(self._event.wait(), timeout)
+  File "/usr/local/lib/python3.12/asyncio/tasks.py", line 519, in wait_for
+    async with timeouts.timeout(timeout):
+  File "/usr/local/lib/python3.12/asyncio/timeouts.py", line 115, in __aexit__
+    raise TimeoutError from exc_val
+TimeoutError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/components/apple_tv/__init__.py", line 223, in connect_once
+    await self._connect_once(raise_missing_credentials)
+  File "/usr/src/homeassistant/homeassistant/components/apple_tv/__init__.py", line 208, in _connect_once
+    await self._connect(conf, raise_missing_credentials)
+  File "/usr/src/homeassistant/homeassistant/components/apple_tv/__init__.py", line 328, in _connect
+    self.atv = await connect(conf, self.hass.loop, session=session)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pyatv/__init__.py", line 155, in connect
+    await atv.connect()
+  File "/usr/local/lib/python3.12/site-packages/pyatv/core/facade.py", line 723, in connect
+    if await setup_data.connect():
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/pyatv/protocols/companion/__init__.py", line 644, in _connect
+    await api.connect()
+  File "/usr/local/lib/python3.12/site-packages/pyatv/protocols/companion/api.py", line 151, in connect
+    await self._protocol.start()
+  File "/usr/local/lib/python3.12/site-packages/pyatv/protocols/companion/protocol.py", line 107, in start
+    await error_handler(self._setup_encryption, exceptions.AuthenticationError)
+  File "/usr/local/lib/python3.12/site-packages/pyatv/support/__init__.py", line 73, in error_handler
+    raise exceptions.ConnectionFailedError(str(ex)) from ex
+pyatv.exceptions.ConnectionFailedError
+2024-11-18 05:46:13.333 ERROR (MainThread) [homeassistant.components.camera] Error requesting stream: camera.garage does not support play stream service
+2024-11-18 05:46:15.359 ERROR (MainThread) [homeassistant.components.camera] Error requesting stream: camera.generic_onvif_001 does not support play stream service
