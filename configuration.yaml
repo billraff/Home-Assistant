@@ -14,11 +14,6 @@ automation: !include automations.yaml
 template: !include templates.yaml
 frontend:
   themes: !include_dir_merge_named themes/
-sonoff:
-  username: bill.raffety@gmail.com
-  password: Tc3iQ{1tBc&9
-  sensors: [power, current, voltage, rssi]
-  device_class: power
 homeassistant:
   packages: !include_dir_named packages
 lock:
