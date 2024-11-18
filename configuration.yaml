@@ -49,7 +49,7 @@ api:
 ffmpeg:
 shell_command:
   cleanup_snapshots: "ls -t /config/www/doorbell_notification.jpg_*.jpg | tail -n +11 | xargs rm -f"
-
+  backup_to_github: '/config/backup_to_github.sh'
 
 
 
