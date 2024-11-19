@@ -822,16 +822,16 @@
 - id: '1716664650745'
   alias: Garage Door close nightly
   description: ''
-  trigger:
-  - platform: time
-    at: '19:00:00'
-  condition: []
-  action:
-  - service: cover.close_cover
-    metadata: {}
+  triggers:
+  - at: '19:00:00'
+    trigger: time
+  conditions: []
+  actions:
+  - metadata: {}
     data: {}
+    action: cover.close_cover
     target:
-      device_id: 0060bd6d0b30a1f02ef2e8b7c2bad126
+      device_id: 0fba8e53860f5962ed8c711050dffa5a
   mode: single
 - id: '1718573871800'
   alias: Garage motion light
@@ -869,7 +869,7 @@
   description: ''
   triggers:
   - entity_id:
-    - cover.ratgdov25i_496086_door
+    - cover.ratgdov25i_dbfe79_door
     for:
       hours: 0
       minutes: 30
@@ -979,15 +979,14 @@
     entity_id: device_tracker.device_tracker_iphone15
     zone: zone.home
   - condition: state
-    entity_id: cover.ratgdov25i_496086_door
+    entity_id: cover.ratgdov25i_dbfe79_door
     state: closed
   actions:
-  - target:
-      entity_id:
-      - cover.ratgdov25i_496086_door
-    data:
+  - data:
       position: 24
     action: cover.set_cover_position
+    target:
+      entity_id: cover.ratgdov25i_dbfe79_door
   - action: notify.mobile_app_iphone15pro
     metadata: {}
     data: {}
