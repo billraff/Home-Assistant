@@ -16,3 +16,17 @@
                 "time": now().isoformat() }]
                 if is_state('media_player.port', 'playing') else [] %}
             {{ (new + current)[:10] }}
+      - name: "Grid Export for Energy Dashboard"
+        unique_id: "grid_export_energy_dashboard"
+        state: "{{ states('sensor.powerwall_site_export') }}"
+        unit_of_measurement: "kWh"
+        state_class: "total_increasing"
+        device_class: "energy"
+      - name: "Grid Import for Energy Dashboard"
+        unique_id: "grid_import_energy_dashboard"
+        state: "{{ states('sensor.powerwall_site_import') }}"
+        unit_of_measurement: "kWh"
+        state_class: "total_increasing"
+        device_class: "energy"
+
+        

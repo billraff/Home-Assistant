@@ -15,9 +15,9 @@
     - thu
     - fri
   actions:
-  - data:
+  - action: notify.mobile_app_judes_iphone15
+    data:
       message: Scooby Doo will be working today.
-    action: notify.mobile_app_judes_iphone
   - action: notify.mobile_app_iphone15pro
     data:
       message: Scooby Doo will be working today.
@@ -171,10 +171,10 @@
       - action: notify.mobile_app_iphone15pro
         data:
           message: Washer is done!
-      - action: notify.mobile_app_judes_iphone
+      - action: notify.mobile_app_judes_iphone15
         metadata: {}
         data:
-          message: Washer is done
+          message: Washer is done.
       starting_hysteresis: 1
 - id: '1673980080243'
   alias: Aqara Cube face-based
@@ -209,11 +209,11 @@
       finishing_threshold: 1
       finishing_hysteresis: 4
       actions:
-      - action: notify.mobile_app_judes_iphone
+      - action: notify.mobile_app_iphone15pro
         metadata: {}
         data:
           message: Dryer is done
-      - action: notify.mobile_app_iphone15pro
+      - action: notify.mobile_app_judes_iphone15
         metadata: {}
         data:
           message: Dryer is done
@@ -449,35 +449,6 @@
       - light.hue_go_2
       - light.hue_play_gradient_lightstrip_1
   mode: single
-- id: '1697652303924'
-  alias: Baby’s home
-  description: ''
-  triggers:
-  - entity_id: device_tracker.device_tracker_judes_iphone
-    zone: zone.home
-    event: enter
-    trigger: zone
-  conditions: []
-  actions:
-  - delay:
-      hours: 0
-      minutes: 4
-      seconds: 0
-      milliseconds: 0
-    enabled: true
-  - data:
-      flash: short
-    target:
-      entity_id:
-      - light.tv
-      - light.hue_go_1
-      - light.hue_go_2
-      - light.hue_play_gradient_lightstrip_1
-    action: light.turn_on
-  - action: notify.mobile_app_iphone15pro
-    data:
-      message: Baby’s home!
-  mode: single
 - id: '1698798362575'
   alias: Scooby Doo Wednesday
   description: ''
@@ -527,7 +498,8 @@
     enabled: false
   actions:
   - action: notify.mobile_app_iphone15pro
-    data: {}
+    data:
+      message: Trash can moved
   mode: single
 - id: '1699803823266'
   alias: Liverpool game starts
@@ -665,7 +637,7 @@
   - delay:
       hours: 0
       minutes: 0
-      seconds: 20
+      seconds: 15
       milliseconds: 0
   - data:
       snapshot_entities:
@@ -771,7 +743,7 @@
     to: unavailable
     for:
       hours: 0
-      minutes: 5
+      minutes: 30
       seconds: 0
     trigger: state
   conditions: []
@@ -975,9 +947,6 @@
     - thu
     - fri
     - sat
-  - condition: zone
-    entity_id: device_tracker.device_tracker_iphone15
-    zone: zone.home
   - condition: state
     entity_id: cover.ratgdov25i_dbfe79_door
     state: closed
@@ -1018,23 +987,23 @@
 - id: '1725012567189'
   alias: Astros Game Score
   description: ''
-  trigger:
-  - platform: state
-    entity_id: sensor.team_tracker_astros
+  triggers:
+  - entity_id: sensor.team_tracker_astros
     attribute: team_score
     id: astros_score
-  - platform: state
-    entity_id: sensor.team_tracker_astros
+    trigger: state
+  - entity_id: sensor.team_tracker_astros
     attribute: opponent_score
     id: opponent_scores
-  condition:
+    trigger: state
+  conditions:
   - condition: zone
-    entity_id: device_tracker.iphone15
+    entity_id: device_tracker.device_tracker_iphone15pro
     zone: zone.home
   - condition: state
     state: 'on'
     entity_id: media_player.lg_tv
-  action:
+  actions:
   - choose:
     - conditions:
       - condition: trigger
@@ -1123,31 +1092,8 @@
   actions:
   - action: notify.mobile_app_iphone15pro
     metadata: {}
-    data: {}
-  mode: single
-- id: '1726660376721'
-  alias: Front Door Person
-  description: ''
-  triggers:
-  - type: turned_on
-    device_id: 4d9c2592cccbc1ede5ea342ccd22daf0
-    entity_id: 27acd87280718c44931d5c22950ca9b6
-    domain: binary_sensor
-    trigger: device
-  conditions: []
-  actions:
-  - metadata: {}
     data:
-      filename: /config/www/doorbell_notification.jpg
-    action: camera.snapshot
-    target:
-      entity_id: camera.the_eye_fluent
-  - action: notify.mobile_app_williams_ipad
-    metadata: {}
-    data:
-      message: '"Person at the door! '
-      data:
-        image: http://homeassistant.local:8123/local/doorbell_notification.jpg?v=1
+      message: Front door unlocked 2 hours
   mode: single
 - id: '1727819551331'
   alias: Blink lights
@@ -1157,8 +1103,11 @@
     input:
       entities_list:
       - light.front_wall_south
+      - light.front_wall_middle
+      - light.front_wall_north
       trigger_entities:
-      - binary_sensor.the_eye_person
+      - binary_sensor.the_eye_visitor
+      number_of_blinks: 5
 - id: '1730163323577'
   alias: Turn garage light off
   description: If garage light on for more than 20 minutes turn it off
@@ -1185,31 +1134,19 @@
   triggers:
   - trigger: numeric_state
     entity_id:
-    - sensor.volvo_yv4h60cf9r1150579_electric_range
-    above: 31
+    - sensor.volvo_yv4h60cf9r1150579_battery_charge_level
+    above: 99.9
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
   conditions: []
   actions:
   - action: notify.mobile_app_iphone15pro
     metadata: {}
     data:
-      message: Car charge complete.
+      message: Car charge complete!
   mode: single
-- id: '1730854018233'
-  alias: Notify 24 Hours Before Full Moon
-  description: ''
-  triggers:
-  - hours: /1
-    trigger: time_pattern
-  conditions:
-  - condition: template
-    value_template: "{{ (as_timestamp(states('sensor.full_moon')) - as_timestamp(now()))
-      < 86400 and \n   (as_timestamp(states('sensor.full_moon')) - as_timestamp(now()))
-      > 0 }}\n"
-  actions:
-  - action: notify.mobile_app_iphone15pro
-    metadata: {}
-    data:
-      message: Full moon fool!
 - id: '1731677012841'
   alias: Full Moon Notify
   description: ''
@@ -1242,6 +1179,11 @@
   - type: turned_on
     device_id: 4d9c2592cccbc1ede5ea342ccd22daf0
     entity_id: 27acd87280718c44931d5c22950ca9b6
+    domain: binary_sensor
+    trigger: device
+  - type: turned_on
+    device_id: 4d9c2592cccbc1ede5ea342ccd22daf0
+    entity_id: 2ad1ef55b1d4add85e2990a8c863df91
     domain: binary_sensor
     trigger: device
   conditions: []
@@ -1277,4 +1219,73 @@
   - action: shell_command.cleanup_snapshots
     metadata: {}
     data: {}
+  mode: single
+- id: '1732819161677'
+  alias: Alert if Roomba is Not Running and Not Docked
+  description: ''
+  triggers:
+  - entity_id: vacuum.scooby_doo
+    to: idle
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: vacuum.scooby_doo
+    state: idle
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: vacuum.scooby_doo
+      state: docked
+  actions:
+  - data:
+      title: Roomba Alert
+      message: Your Roomba is neither running nor docked. Please check its status!
+    action: notify.mobile_app_iphone15pro
+- id: '1733603449274'
+  alias: Doorbell
+  description: ''
+  triggers:
+  - type: turned_on
+    device_id: 4d9c2592cccbc1ede5ea342ccd22daf0
+    entity_id: 2ad1ef55b1d4add85e2990a8c863df91
+    domain: binary_sensor
+    trigger: device
+  conditions:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: device_tracker.device_tracker_judes_iphone15
+      state: home
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: device_tracker.device_tracker_iphone15pro
+        state: home
+  actions:
+  - action: scene.create
+    metadata: {}
+    data:
+      snapshot_entities:
+      - light.tv
+      scene_id: doorbell
+  - action: light.turn_on
+    metadata: {}
+    data:
+      rgb_color:
+      - 235
+      - 77
+      - 61
+      brightness_pct: 100
+    target:
+      entity_id: light.tv
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - action: scene.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: scene.doorbell
   mode: single
