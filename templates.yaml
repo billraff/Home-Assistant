@@ -1,7 +1,7 @@
 
   - trigger:
       - platform: state
-        entity_id: media_player.port
+        entity_id: media_player.office
         attribute: media_title
     sensor:
       - name: Recent Tracks
@@ -14,8 +14,8 @@
                 "title": trigger.to_state.attributes.media_title,
                 "album": trigger.to_state.attributes.media_album_name,
                 "time": now().isoformat() }]
-                if is_state('media_player.port', 'playing') else [] %}
-            {{ (new + current)[:10] }}
+                if is_state('media_player.office', 'playing') else [] %}
+            {{ (new + current)[:20] }}
       - name: "Grid Export for Energy Dashboard"
         unique_id: "grid_export_energy_dashboard"
         state: "{{ states('sensor.powerwall_site_export') }}"

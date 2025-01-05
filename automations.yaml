@@ -113,29 +113,29 @@
 - id: '1669217949027'
   alias: Xmas tree on
   description: ''
-  trigger:
-  - platform: sun
-    event: sunrise
+  triggers:
+  - event: sunrise
     offset: 0
-  condition: []
-  action:
+    trigger: sun
+  conditions: []
+  actions:
   - data: {}
     action: switch.turn_on
     target:
-      entity_id: switch.sonoff_s31_lite_zb_switch
+      entity_id: switch.sonoff_1001712e46
   mode: single
 - id: '1669218070019'
   alias: Xmas tree off
   description: ''
-  trigger:
-  - platform: time
-    at: '21:00:00'
-  condition: []
-  action:
+  triggers:
+  - at: '21:00:00'
+    trigger: time
+  conditions: []
+  actions:
   - data: {}
     action: switch.turn_off
     target:
-      device_id: 0fe9d9b20ec5e53ea102f5db36ed7e51
+      entity_id: switch.sonoff_1001712e46
   mode: single
 - id: '1672430416091'
   alias: Turn off idle Yamaha AVR
@@ -176,28 +176,6 @@
         data:
           message: Washer is done.
       starting_hysteresis: 1
-- id: '1673980080243'
-  alias: Aqara Cube face-based
-  description: ''
-  use_blueprint:
-    path: EdwardTFN/aqara-cube-zha-simplified-face-based-device-control.yaml
-    input:
-      cube: 651c6f1c8c8daf193c2dbaf8e9e72ac1
-      face_1_flip: []
-      last_face_input: input_number.cube_last_activated_face
-      face_2_flip: []
-      face_1_knock: []
-      face_6_flip: []
-      face_1_rotate_clockwise:
-      - service: media_player.volume_up
-        target:
-          entity_id: media_player.onkyo_receiver
-        data: {}
-      face_1_rotate_counter_clockwise:
-      - service: media_player.volume_down
-        target:
-          entity_id: media_player.onkyo_receiver
-        data: {}
 - id: '1677874924086'
   alias: Dryer is done
   description: Dryer
@@ -480,27 +458,6 @@
   - service: cloud.remote_connect
     data: {}
   mode: single
-- id: '1699713180878'
-  alias: Trash can
-  description: ''
-  triggers:
-  - type: vibration
-    device_id: 873a8b23a96ecfa88f50b9266b3b090f
-    entity_id: 03ffab34954001d2a64177700f70e80f
-    domain: binary_sensor
-    trigger: device
-  conditions:
-  - condition: time
-    after: 08:00:00
-    before: '17:00:00'
-    weekday:
-    - thu
-    enabled: false
-  actions:
-  - action: notify.mobile_app_iphone15pro
-    data:
-      message: Trash can moved
-  mode: single
 - id: '1699803823266'
   alias: Liverpool game starts
   description: ''
@@ -753,31 +710,12 @@
     data:
       message: Grid is down!
   mode: single
-- id: '1709477220414'
-  alias: Smoke detector triggered!
-  description: ''
-  triggers:
-  - entity_id:
-    - binary_sensor.dc_signal_sensor_smoke_detected
-    to: 'on'
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 10
-    trigger: state
-  conditions: []
-  actions:
-  - action: notify.mobile_app_iphone15pro
-    metadata: {}
-    data:
-      message: Smoke detector triggered!
-  mode: single
 - id: '1716052165883'
-  alias: Zigbee offline
+  alias: Zwave offline
   description: ''
   triggers:
   - entity_id:
-    - binary_sensor.lumi_lumi_vibration_aq1_vibration
+    - sensor.zigbee_device_temperature
     to: unavailable
     for:
       hours: 0
@@ -1095,19 +1033,6 @@
     data:
       message: Front door unlocked 2 hours
   mode: single
-- id: '1727819551331'
-  alias: Blink lights
-  description: ''
-  use_blueprint:
-    path: edwardtfn/blink_lights.yaml
-    input:
-      entities_list:
-      - light.front_wall_south
-      - light.front_wall_middle
-      - light.front_wall_north
-      trigger_entities:
-      - binary_sensor.the_eye_visitor
-      number_of_blinks: 5
 - id: '1730163323577'
   alias: Turn garage light off
   description: If garage light on for more than 20 minutes turn it off
@@ -1289,3 +1214,25 @@
     target:
       entity_id: scene.doorbell
   mode: single
+- id: '1735913252046'
+  alias: Cube Automation
+  description: ''
+  use_blueprint:
+    path: EdwardTFN/aqara-cube-zha-simplified-face-based-device-control.yaml
+    input:
+      last_face_input: input_number.cube_last_activated_face
+      cube: 651c6f1c8c8daf193c2dbaf8e9e72ac1
+      face_1_flip: []
+      face_1_knock: []
+      face_1_rotate_clockwise:
+      - action: media_player.volume_up
+        metadata: {}
+        data: {}
+        target:
+          entity_id: media_player.tsr700
+      face_1_rotate_counter_clockwise:
+      - action: media_player.volume_down
+        metadata: {}
+        data: {}
+        target:
+          entity_id: media_player.tsr700
