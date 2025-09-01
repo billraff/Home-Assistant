@@ -1,0 +1,21 @@
+- platform: time_date
+  display_options:
+    - 'time'
+    - 'date'
+    - 'date_time'
+    - 'date_time_utc'
+    - 'date_time_iso'
+    - 'time_date'
+    - 'time_utc'
+
+- platform: template
+  sensors:
+    uptime_minutes:
+      friendly_name: UpTime in Minutes
+      value_template: >
+        {{ (as_timestamp(now()) - as_timestamp(states('sensor.uptime'))) // 60 | round(0) }}
+
+    garage_door_status_for_shortcut:
+      friendly_name: "Garage Door Status"
+      value_template: >
+        {{ states('cover.ratgdov25i_dbfe79_door') | title }}

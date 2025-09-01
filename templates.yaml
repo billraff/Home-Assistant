@@ -1,0 +1,43 @@
+- trigger:
+    - platform: state
+      entity_id: media_player.office
+      attribute: media_title
+  sensor:
+    - name: "Recent Tracks"
+      state: "{{ now().timestamp() | timestamp_custom() }}"
+      attributes:
+        tracks: >
+          {% set current = this.attributes.get('tracks', []) %}
+          {% set current = current if current is iterable and current is not string else [] %}
+
+          {% set artist = trigger.to_state.attributes.get('media_artist') %}
+          {% set title = trigger.to_state.attributes.get('media_title') %}
+          {% set album = trigger.to_state.attributes.get('media_album_name') %}
+          {% set station = trigger.to_state.attributes.get('media_channel') %}
+
+          {% set new = [{
+            "artist": artist,
+            "title": title,
+            "album": album,
+            "station": station,
+            "time": now().isoformat()
+          }] if is_state('media_player.office', 'playing') else [] %}
+
+          {{ (new + current)[:10] }}
+
+
+- sensor:
+    - name: "Mock Team Tracker Astros"
+      unique_id: mock_team_tracker_astros
+      state: "game_on"
+      attributes:
+        team_score: "{{ states('input_number.team_score') | int }}"
+        opponent_score: "{{ states('input_number.opponent_score') | int }}"
+        opponent_colors: "{{ states('input_text.opponent_colors') }}"
+
+    - name: "Daily Steps"
+      unique_id: daily_steps_sensor
+      unit_of_measurement: "steps"
+      state_class: measurement
+      device_class: distance
+      state: "{{ states('input_number.steps') | int }}"

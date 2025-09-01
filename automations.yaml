@@ -1,0 +1,2465 @@
+- id: '1679414627431'
+  alias: Vacation lights on
+  description: ''
+  trigger:
+  - platform: time
+    at: '18:30:00'
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      brightness: 255
+    target:
+      entity_id:
+      - light.kitchen
+  mode: single
+- id: '1679414851097'
+  alias: Vacation lights off
+  description: ''
+  trigger:
+  - platform: time
+    at: '22:00:00'
+  condition: []
+  action:
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id:
+      - light.kitchen
+  mode: single
+- id: '1680102657162'
+  alias: Front Zone Lights On
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: 0
+  condition: []
+  action:
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id:
+      - light.front_door
+      - light.balcony
+  - service: hue.activate_scene
+    data: {}
+    target:
+      entity_id:
+      - scene.front_porch_zone_relax
+      - scene.spot_light_zone_relax
+  mode: single
+- id: '1680102801759'
+  alias: Front Zone Lights Off
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+    offset: 0
+  condition: []
+  action:
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id:
+      - light.front_door
+      - light.balcony
+  mode: single
+- id: '1689092131288'
+  alias: Group speakers nightly
+  description: Group speakers nightly after wifi shutdown/restart
+  trigger:
+  - platform: time
+    at: 04:00:00
+  condition: []
+  action:
+  - data:
+      group_members:
+      - media_player.piecing_room
+      - media_player.bathroom
+      - media_player.dining_room
+      - media_player.guest_room
+      - media_player.master_bedroom
+      - media_player.midarm_room
+      - media_player.port
+    action: media_player.join
+    target:
+      entity_id: media_player.office
+  - target:
+      entity_id:
+      - media_player.bathroom
+    data:
+      volume_level: 0.1
+    action: media_player.volume_set
+  - target:
+      entity_id:
+      - media_player.guest_room
+    data:
+      volume_level: 0.08
+    action: media_player.volume_set
+  - target:
+      entity_id:
+      - media_player.dining_room
+    data:
+      volume_level: 0.11
+    action: media_player.volume_set
+  - target:
+      entity_id:
+      - media_player.midarm_room
+    data:
+      volume_level: 0.07
+    action: media_player.volume_set
+  - target:
+      entity_id:
+      - media_player.piecing_room
+    data:
+      volume_level: 0.07
+    action: media_player.volume_set
+  - data:
+      volume_level: 0.09
+    action: media_player.volume_set
+    target:
+      entity_id: media_player.office
+  - target:
+      device_id: 538cbd2a8eb50981ec7d404384aed0eb
+    data:
+      volume_level: 0.85
+    action: media_player.volume_set
+  - action: media_player.volume_set
+    metadata: {}
+    data:
+      volume_level: 0.09
+    target:
+      entity_id: media_player.master_bedroom
+  mode: single
+- id: '1690299887598'
+  alias: Reboot Yamaha
+  description: ''
+  triggers:
+  - entity_id:
+    - media_player.tsr700
+    to: unavailable
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    trigger: state
+  conditions: []
+  actions:
+  - action: notify.mobile_app_iphone15pro
+    data: {}
+  mode: single
+- id: '1690897399961'
+  alias: Volvo Charge Complete
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.volvo_yv4h60cf9r1150579_battery_charge_level
+    above: 99
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  condition:
+  - condition: numeric_state
+    entity_id: sensor.uptime_minutes
+    above: 8
+  action:
+  - service: notify.mobile_app_iphone15
+    data:
+      message: Volvo charge complete
+  - service: notify.mobile_app_judes_iphone
+    data:
+      message: The car charge is at 100%!
+  - service: light.turn_on
+    data:
+      flash: short
+    target:
+      entity_id:
+      - light.tv
+      - light.hue_go_1
+      - light.hue_go_2
+      - light.hue_play_gradient_lightstrip_1
+  mode: single
+- id: '1698798362575'
+  alias: Yeti Wednesday
+  description: ''
+  triggers:
+  - at: '10:30:00'
+    trigger: time
+  conditions:
+  - condition: time
+    weekday:
+    - wed
+  actions:
+  - action: notify.mobile_app_judes_iphone15
+    data:
+      message: Yeti will be cleaning sewing rooms!
+  - action: notify.mobile_app_iphone15pro
+    data:
+      message: Yeti will be cleaning sewing rooms!
+  mode: single
+- id: '1699046962708'
+  alias: Enable remote access when leaving
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id: device_tracker.device_tracker_iphone15
+    zone: zone.home
+    event: leave
+  condition: []
+  action:
+  - service: cloud.remote_connect
+    data: {}
+  mode: single
+- id: '1699803823266'
+  alias: Liverpool game starts
+  description: ''
+  triggers:
+  - entity_id:
+    - sensor.team_tracker_2
+    from: PRE
+    to: IN
+    enabled: true
+    trigger: state
+  conditions:
+  - condition: zone
+    entity_id: device_tracker.device_tracker_iphone15pro
+    zone: zone.home
+  - condition: state
+    entity_id: media_player.lg_tv
+    state: 'on'
+  actions:
+  - data:
+      snapshot_entities:
+      - light.tv
+      - light.tv_2
+      scene_id: thebeforetimes
+    action: scene.create
+  - data:
+      rgb_color:
+      - 235
+      - 77
+      - 61
+    target:
+      entity_id:
+      - light.tv
+      - light.tv_2
+    action: light.turn_on
+  - data:
+      flash: long
+    target:
+      entity_id:
+      - light.tv
+      - light.tv_2
+    action: light.turn_on
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 16
+      milliseconds: 0
+  - data: {}
+    target:
+      entity_id: scene.thebeforetimes
+    action: scene.turn_on
+  mode: single
+- id: '1699977740249'
+  alias: Turns Shelly Front Porch Switch on at sunset
+  description: Turns Shelly Front Porch Switch on at sunset for ABC Lights
+  triggers:
+  - event: sunset
+    offset: 0
+    trigger: sun
+  conditions: []
+  actions:
+  - data: {}
+    target:
+      entity_id: light.shelly_front
+    action: light.turn_on
+  mode: single
+- id: '1699977888755'
+  alias: Turns Shelly Front Porch Switch off
+  description: Turns Shelly Front Porch Switch off at sunrise for ABC Lights.
+  triggers:
+  - event: sunrise
+    offset: 0
+    trigger: sun
+  conditions: []
+  actions:
+  - data: {}
+    target:
+      entity_id: light.shelly_front
+    action: light.turn_off
+  mode: single
+- id: '1700310618568'
+  alias: Porch Holiday Lights Off
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+    offset: 0
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.shelly_east_side_2
+  mode: single
+- id: '1700310672026'
+  alias: Porch Holiday Lights On
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: 0
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.shelly_east_side_2
+  mode: single
+- id: '1703342511198'
+  alias: Office Light
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - light.hue_color_lamp_1_3
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.office_relax
+    metadata: {}
+  mode: single
+- id: '1703425907989'
+  alias: Liverpool Scores
+  description: ''
+  triggers:
+  - entity_id:
+    - sensor.team_tracker_2
+    attribute: team_score
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: media_player.lg_tv
+    state: 'on'
+  - condition: zone
+    entity_id: device_tracker.device_tracker_iphone15pro
+    zone: zone.home
+  - condition: template
+    value_template: "      {{ trigger.to_state.attributes.team_score | int >\n      (trigger.from_state.attributes.team_score
+      | int ) }}"
+  actions:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 3
+      milliseconds: 0
+  - data:
+      snapshot_entities:
+      - light.tv
+      - light.tv_2
+      scene_id: thebeforetimes
+    action: scene.create
+  - data:
+      rgb_color:
+      - 235
+      - 77
+      - 61
+    target:
+      entity_id:
+      - light.tv
+      - light.tv_2
+    action: light.turn_on
+  - data:
+      flash: short
+    target:
+      entity_id:
+      - light.tv
+      - light.tv_2
+    action: light.turn_on
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 3
+  - data: {}
+    target:
+      entity_id: scene.thebeforetimes
+    action: scene.turn_on
+  mode: single
+- id: '1716052165883'
+  alias: Zigbee offline
+  description: ''
+  triggers:
+  - entity_id:
+    - binary_sensor.lumi_lumi_vibration_aq1
+    to: unavailable
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+    trigger: state
+  conditions: []
+  actions:
+  - action: notify.mobile_app_iphone15pro
+    metadata: {}
+    data:
+      message: Zigbee offline
+  mode: single
+- id: '1716664650745'
+  alias: Garage Door close nightly
+  description: ''
+  triggers:
+  - at: '19:00:00'
+    trigger: time
+  conditions: []
+  actions:
+  - metadata: {}
+    data: {}
+    action: cover.close_cover
+    target:
+      device_id: 0fba8e53860f5962ed8c711050dffa5a
+  mode: single
+- id: '1718573871800'
+  alias: Garage motion light
+  description: ''
+  use_blueprint:
+    path: brigger/advanced_custom_motion_sensor.yaml
+    input:
+      motion_entity:
+      - binary_sensor.hue_motion_sensor_3_motion
+      light_target:
+        device_id: 265e3979064fbcf0547c157cc6fdef5c
+      luminance_sensor: sensor.hue_motion_sensor_3_illuminance
+      time_default_end: '21:00:00'
+- id: '1720356211734'
+  alias: Garage door open for 30 minutes
+  description: ''
+  triggers:
+  - entity_id:
+    - cover.ratgdov25i_dbfe79_door
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+    to: open
+    trigger: state
+  conditions: []
+  actions:
+  - action: notify.mobile_app_iphone15pro
+    metadata: {}
+    data:
+      message: Garage door open 30 minutes!
+  - action: notify.awtrix_00d9dc
+    metadata: {}
+    data:
+      message: Garage door open 30 minutes!!!
+      data:
+        rtttl: 'two_short : d=6, o=5, b=100: 16e6, 16e6'
+  mode: single
+- id: '1721512177797'
+  alias: Battery check
+  description: ''
+  use_blueprint:
+    path: Blackshome/low-battery-notifications-and-actions.yaml
+    input:
+      button_entity: input_button.button_helper
+      time: '17:00:00'
+      notify_device:
+      - 00cc0e8862fc1a8b10813c4fef26990d
+      include_time: time_enabled
+      include_button: enable_button_trigger
+      include_easy_notify: enable_easy_notify
+      include_persistent_notification: disabled_persistent_notification
+      sensor_selection: enable_all_sensors
+      notify_message: sensors
+      notify_title: Low Battery Check
+      battery_level: 20
+      custom_group_battery_level: 15
+      exclude_sensors:
+        entity_id:
+        - sensor.volvo_xc90_battery_charge_level
+        - sensor.powerwall_charge
+        - sensor.powerwall_backup_reserve
+        - sensor.powerwall_backup_reserve_2
+      notify_action_buttons: disabled_notify_action_buttons
+      to_do_list: todo.todo
+- id: '1722284183342'
+  alias: Wled on
+  description: ''
+  triggers:
+  - trigger: sun
+    event: sunrise
+    offset: 0
+  conditions: []
+  actions:
+  - type: turn_on
+    device_id: 592b45fe24714008e092ce09eb3798ac
+    entity_id: d4f8f7b177640ecfbbbdaad9c6628d1b
+    domain: light
+  mode: single
+- id: '1722284241065'
+  alias: Wled off
+  description: ''
+  triggers:
+  - trigger: sun
+    event: sunset
+    offset: 0
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: 592b45fe24714008e092ce09eb3798ac
+    entity_id: d4f8f7b177640ecfbbbdaad9c6628d1b
+    domain: light
+  mode: single
+- id: '1722716650125'
+  alias: Cool garage
+  description: ''
+  triggers:
+  - minutes: /15
+    trigger: time_pattern
+  conditions:
+  - condition: zone
+    entity_id: device_tracker.device_tracker_iphone15pro
+    zone: zone.home
+  - condition: numeric_state
+    entity_id: sensor.hue_motion_sensor_3_temperature
+    above: 95
+  - condition: time
+    after: 09:00:00
+    before: '18:59:00'
+    weekday:
+    - sun
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
+  - condition: state
+    entity_id: cover.ratgdov25i_dbfe79_door
+    state: closed
+  actions:
+  - data:
+      position: 36
+    action: cover.set_cover_position
+    target:
+      entity_id: cover.ratgdov25i_dbfe79_door
+  - type: turn_on
+    device_id: c66b3aec119b4902a0941f7398df42fe
+    entity_id: 796eb0ec8f19157b876d25aacf72e00f
+    domain: fan
+  - action: notify.mobile_app_iphone15pro
+    metadata: {}
+    data:
+      message: Door raised to cool garage.
+  mode: single
+- id: '1730163323577'
+  alias: Turn garage light off
+  description: If garage light on for more than 20 minutes turn it off
+  triggers:
+  - trigger: state
+    entity_id:
+    - light.garage_light
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 20
+      seconds: 0
+  conditions: []
+  actions:
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      device_id: 265e3979064fbcf0547c157cc6fdef5c
+  mode: single
+- id: '1731852304180'
+  alias: Doorbell Snapshots
+  description: ''
+  triggers:
+  - type: turned_on
+    device_id: 4d9c2592cccbc1ede5ea342ccd22daf0
+    entity_id: 27acd87280718c44931d5c22950ca9b6
+    domain: binary_sensor
+    trigger: device
+  - type: turned_on
+    device_id: 4d9c2592cccbc1ede5ea342ccd22daf0
+    entity_id: 2ad1ef55b1d4add85e2990a8c863df91
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - metadata: {}
+    data:
+      filename: /config/www/doorbell_notification.jpg_{{ now().strftime('%Y%m%d%H%M%S')
+        }}.jpg
+    action: camera.snapshot
+    target:
+      entity_id: camera.the_eye_fluent
+  - metadata: {}
+    data:
+      filename: /config/www/doorbell_notification.jpg
+    action: camera.snapshot
+    target:
+      entity_id: camera.the_eye_fluent
+  - action: notify.mobile_app_williams_ipad
+    metadata: {}
+    data:
+      message: '"Person at the door! '
+      data:
+        url: /lovelace/front-porch
+        tag: Person
+  mode: single
+- id: '1731853743065'
+  alias: Cleanup Doorbell Snapshots
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    minutes: '30'
+  conditions: []
+  actions:
+  - action: shell_command.cleanup_doorbell_snapshots
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1732819161677'
+  alias: Alert if Roomba is Not Running and Not Docked
+  description: ''
+  triggers:
+  - entity_id: vacuum.scooby_doo
+    to: idle
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: vacuum.scooby_doo
+    state: idle
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: vacuum.scooby_doo
+      state: docked
+  actions:
+  - data:
+      title: Roomba Alert
+      message: Your Roomba is neither running nor docked. Please check its status!
+    action: notify.mobile_app_iphone15pro
+- id: '1733603449274'
+  alias: Doorbell
+  description: ''
+  triggers:
+  - type: turned_on
+    device_id: 4d9c2592cccbc1ede5ea342ccd22daf0
+    entity_id: 2ad1ef55b1d4add85e2990a8c863df91
+    domain: binary_sensor
+    trigger: device
+  conditions:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: device_tracker.device_tracker_judes_iphone15
+      state: home
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: device_tracker.device_tracker_iphone15pro
+        state: home
+  actions:
+  - action: scene.create
+    metadata: {}
+    data:
+      snapshot_entities:
+      - light.tv
+      scene_id: doorbell
+  - action: light.turn_on
+    metadata: {}
+    data:
+      rgb_color:
+      - 235
+      - 77
+      - 61
+      brightness_pct: 100
+    target:
+      entity_id: light.tv
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - action: scene.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: scene.doorbell
+  mode: single
+- id: '1735913252046'
+  alias: Cube Automation
+  description: ''
+  use_blueprint:
+    path: EdwardTFN/aqara-cube-zha-simplified-face-based-device-control.yaml
+    input:
+      last_face_input: input_number.cube_last_activated_face
+      cube: 651c6f1c8c8daf193c2dbaf8e9e72ac1
+      face_1_flip: []
+      face_1_knock:
+      - action: notify.mobile_app_iphone15pro
+        metadata: {}
+        data:
+          message: Aqara cube is alive.
+      face_1_rotate_clockwise: []
+      face_1_rotate_counter_clockwise: []
+- id: '1736373688919'
+  alias: Baby’s home
+  description: ''
+  triggers:
+  - device_id: ef0dca541ef6c4e9289fbf7328e33217
+    domain: device_tracker
+    entity_id: abbdcd2e99123f9ea110d3404aa2c134
+    type: enters
+    trigger: device
+    zone: zone.home
+  conditions: []
+  actions:
+  - action: notify.mobile_app_iphone15pro
+    metadata: {}
+    data:
+      message: Baby’s home
+  mode: single
+- id: '1737036898709'
+  alias: Weekly Reboot with LAN Check
+  description: Reboot Home Assistant weekly, but only if LAN connectivity is verified
+  triggers:
+  - at: 03:00:00
+    trigger: time
+  conditions:
+  - condition: state
+    entity_id: binary_sensor.192_168_87_1
+    state: 'on'
+  - condition: time
+    weekday:
+    - tue
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: binary_sensor.192_168_87_1
+        state: 'on'
+      sequence:
+      - data:
+          message: Rebooting Home Assistant since LAN is up.
+        action: notify.notify
+      - action: homeassistant.restart
+        data: {}
+    default:
+    - data:
+        message: Skipping reboot. LAN is down.
+      action: notify.notify
+  mode: single
+- id: '1737635091649'
+  alias: Vibration detected
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.lumi_lumi_vibration_aq1
+    to: 'on'
+  conditions: []
+  actions:
+  - action: notify.mobile_app_iphone15pro
+    metadata: {}
+    data:
+      message: Vibration detectd
+  mode: single
+- id: '1737731150847'
+  alias: Awtrix Now Playing
+  description: ''
+  use_blueprint:
+    path: blueforcer/flow_GKXydoDmOpjL.yaml
+    input:
+      awtrix_3: be459c88e2efbcc5929fe6d77022312e
+      media_player: media_player.office
+      show_rainbow: true
+      icon_in: '5828'
+- id: '1737740534144'
+  alias: Awtrix garage door opening
+  description: ''
+  triggers:
+  - device_id: 0fba8e53860f5962ed8c711050dffa5a
+    domain: cover
+    entity_id: 46ca5019f85da5a9daf980a5edd4c354
+    type: opening
+    trigger: device
+  conditions: []
+  actions:
+  - action: notify.awtrix_00d9dc
+    metadata: {}
+    data:
+      message: Garage door opening Garage door opening Garage door opening
+  mode: single
+- id: '1737740657304'
+  alias: Awtrix garage door closing
+  description: ''
+  triggers:
+  - device_id: 0fba8e53860f5962ed8c711050dffa5a
+    domain: cover
+    entity_id: 46ca5019f85da5a9daf980a5edd4c354
+    type: closing
+    trigger: device
+  conditions: []
+  actions:
+  - action: notify.awtrix_00d9dc
+    metadata: {}
+    data:
+      message: Garage door closing Garage door closing Garage door closing
+  mode: single
+- id: '1737906147566'
+  alias: Awtrix Liverpool Score
+  description: ''
+  use_blueprint:
+    path: blueforcer/flow_XRKW5R6e5rP4.yaml
+    input:
+      awtrix:
+      - be459c88e2efbcc5929fe6d77022312e
+      my_sensor: sensor.team_tracker_2
+      message_duration: 5
+- id: '1737976789015'
+  alias: Awtrix Night Mode
+  description: ''
+  triggers:
+  - at: '21:30:00'
+    id: NM Start
+    enabled: true
+    trigger: time
+  - at: 05:15:00
+    id: NM End
+    enabled: true
+    trigger: time
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - NM Start
+      sequence:
+      - data:
+          qos: 0
+          retain: false
+          topic: awtrix_00d9dc/switch
+          payload: '{"name":"Time"}'
+        action: mqtt.publish
+      - data:
+          qos: 0
+          retain: false
+          topic: awtrix_00d9dc/settings
+          payload: '{ "WD": false, "TIME_COL": [255,0,0], "TMODE": 0, "BRI": 1, "ABRI":
+            false, "ATRANS": false }'
+        action: mqtt.publish
+    - conditions:
+      - condition: trigger
+        id:
+        - NM End
+        enabled: true
+      sequence:
+      - data:
+          qos: 0
+          retain: false
+          topic: awtrix_00d9dc/settings
+          payload: '{ "WD": false, "TIME_COL": [255,255,255], "TMODE": 0, "ABRI":
+            true, "ATRANS": true }'
+        action: mqtt.publish
+  mode: single
+- id: '1739025406913'
+  alias: Awtrix Solar
+  description: ''
+  use_blueprint:
+    path: blueforcer/flow_qRWNolZn5X4w.yaml
+    input:
+      awtrix:
+      - be459c88e2efbcc5929fe6d77022312e
+      power_source: sensor.apf_generation_entity
+      threshold_high: 4000
+      threshold_low: 1000
+      skip_if_zero_watts: true
+      skip_during_night_hours: true
+      night_starts_after_time: '20:00:00'
+      night_ends_after_time: '11:00:00'
+- id: '1739038634709'
+  alias: Awtrix Powerwall battery display
+  description: Display Powerwall battery charge percentage on Awtrix device between
+    noon and 5:30 PM.
+  triggers:
+  - trigger: time_pattern
+    minutes: /5
+    enabled: true
+  - at: '11:00:00'
+    trigger: time
+  - at: '20:00:00'
+    trigger: time
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: time
+        after: '11:00:00'
+        before: '20:00:00'
+      sequence:
+      - action: awtrix.awtrix_00d9dc_push_app_data
+        data:
+          name: Battery
+          data:
+            icon: '21585'
+            text: '{{ states(''sensor.powerwall_battery'') }} %'
+            color: '#00FF00'
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 2
+          milliseconds: 0
+        enabled: false
+      - action: awtrix.awtrix_00d9dc_push_app_data
+        metadata: {}
+        data:
+          data:
+            text: ''
+          name: Battery
+        enabled: false
+    - conditions:
+      - condition: time
+        after: '17:30:00'
+      sequence:
+      - action: awtrix.awtrix_00d9dc_push_app_data
+        data:
+          name: Battery
+          data: {}
+  mode: single
+- id: '1739723567654'
+  alias: Washer is done (new version)
+  description: ''
+  use_blueprint:
+    path: Blackshome/appliance-notifications.yaml
+    input:
+      power_sensor: sensor.sonoff_100153a347_power
+      start_appliance_power: 1
+      running_dead_zone: 1
+      end_repeat_count: 1
+      include_start_notify: enable_start_notify_options
+      start_notify_device:
+      - 00cc0e8862fc1a8b10813c4fef26990d
+      end_notify_device:
+      - 00cc0e8862fc1a8b10813c4fef26990d
+      - 7d29bef88dfc16fb8646bcf80e725e20
+      end_reminder_notification: disable_reminder_notification
+      include_power_tracking: disable_power_tracking
+      power_consumption_sensor: sensor.sonoff_100153a347_energy
+      start_time_delay: 0.25
+      end_appliance_power: 1
+      end_time_delay: 5
+      include_end_notify: enable_end_notify_options
+- id: '1741111125888'
+  alias: Jude’s on the move (Spook-safe, multiple StatZons)
+  description: Notify when Jude leaves any iCloud3 stationary zone
+  triggers:
+  - entity_id: device_tracker.device_tracker_judes_iphone15
+    trigger: state
+  conditions:
+  - condition: template
+    value_template: "{% set statzons = ['StatZon1', 'StatZon2'] %} {{ trigger.from_state.state
+      in statzons and\n   trigger.to_state.state not in statzons }}\n"
+  actions:
+  - data:
+      message: Jude’s on the move
+    action: notify.mobile_app_iphone15pro
+  mode: single
+- id: '1741453958673'
+  alias: Awtrix Outdoor Temperature
+  description: Display outdoor temperature on Awtrix device between noon and 5:30
+    PM.
+  triggers:
+  - trigger: time_pattern
+    minutes: /5
+    enabled: true
+  - at: '11:00:00'
+    trigger: time
+  - at: '20:00:00'
+    trigger: time
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: time
+        after: '11:00:00'
+        before: '20:00:00'
+      sequence:
+      - action: awtrix.awtrix_00d9dc_push_app_data
+        data:
+          name: Temp
+          data:
+            icon: '2262'
+            text: '{{ states(''sensor.temperature'') | float | round(0) }} °'
+            color: '#00FF00'
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 2
+          milliseconds: 0
+        enabled: false
+      - action: awtrix.awtrix_00d9dc_push_app_data
+        metadata: {}
+        data:
+          data:
+            text: ''
+          name: Battery
+        enabled: false
+    - conditions:
+      - condition: time
+        after: '17:30:00'
+      sequence:
+      - action: awtrix.awtrix_00d9dc_push_app_data
+        data:
+          data: {}
+          name: Temp
+  mode: single
+- id: '1746389666632'
+  alias: Awtrix Astros Score
+  description: Show the current score on Awtrix when the top of a new inning begins.
+  triggers:
+  - entity_id: sensor.team_tracker_astros
+    attribute: quarter
+    trigger: state
+  conditions:
+  - condition: zone
+    entity_id: device_tracker.iphone15pro
+    zone: zone.home
+  - condition: device
+    device_id: 5fa70e954fc5e60c6b9cac94464ed769
+    domain: media_player
+    entity_id: 7fe945f90561fc2543638796bc21ee35
+    type: is_on
+  - condition: template
+    value_template: "{{ (trigger.to_state.attributes.quarter | int(default=0)) >\n
+      \  (trigger.from_state.attributes.quarter | int(default=0)) }}\n"
+  - condition: template
+    value_template: '{{ "top" in (trigger.to_state.attributes.clock | lower) }}
+
+      '
+  actions:
+  - variables:
+      inning: '{{ trigger.to_state.attributes.quarter }}'
+      clock: '{{ trigger.to_state.attributes.clock }}'
+      team_score: '{{ trigger.to_state.attributes.team_score }}'
+      opponent_score: '{{ trigger.to_state.attributes.opponent_score }}'
+      team_name: Astros
+      opponent_name: '{{ trigger.to_state.attributes.opponent_name or ''Opponent''
+        }}'
+      display_text: '{{ team_name }} {{ team_score }} - {{ opponent_score }} {{ opponent_name
+        }} (Top {{ inning }})'
+  - data:
+      name: inning_score
+      data:
+        text: '{{ display_text }}'
+        color:
+        - 255
+        - 255
+        - 255
+        duration: 30
+        pushIcon: 2
+        lifetime: 120
+        repeat: 5
+    action: awtrix.awtrix_00d9dc_push_app_data
+  mode: single
+- id: '1748346397055'
+  alias: Front Zone Lights On (w/Holidays)
+  description: Turns on front zone lights at sunset with holiday colors when applicable.
+  triggers:
+  - event: sunset
+    trigger: sun
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ now().month == 2 and now().day == 14 }}'
+      sequence:
+      - target:
+          entity_id:
+          - light.front_door
+          - light.balcony
+        data:
+          rgb_color:
+          - 255
+          - 105
+          - 180
+          brightness: 255
+        action: light.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().month == 3 and now().day == 17 }}'
+      sequence:
+      - target:
+          entity_id:
+          - light.front_door
+          - light.balcony
+        data:
+          rgb_color:
+          - 0
+          - 255
+          - 0
+          brightness: 255
+        action: light.turn_on
+    - conditions:
+      - condition: template
+        value_template: "{{ \n  (now().month == 5 and now().day >= 25 and now().day
+          <= 31 and now().weekday() == 0) or\n  (now().month == 7 and now().day ==
+          4) or\n  (now().month == 9 and now().day >= 1 and now().day <= 7 and now().weekday()
+          == 0)\n}}"
+      sequence:
+      - action: notify.mobile_app_iphone15pro
+        data:
+          message: "\U0001F1FA\U0001F1F8 Red/White/Blue holiday detected — triggering
+            loop"
+      - target:
+          entity_id: automation.loop_red_white_blue_porch_lights
+        action: automation.trigger
+        data:
+          skip_condition: true
+    - conditions:
+      - condition: template
+        value_template: '{{ now().month == 10 and now().day == 31 }}'
+      sequence:
+      - target:
+          entity_id:
+          - light.front_door
+          - light.balcony
+        data:
+          rgb_color:
+          - 255
+          - 165
+          - 0
+          brightness: 255
+        action: light.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().month == 12 and now().day >= 24 and now().day <=
+          26 }}'
+      sequence:
+      - target:
+          entity_id: light.front_door
+        data:
+          rgb_color:
+          - 255
+          - 0
+          - 0
+          brightness: 255
+        action: light.turn_on
+      - target:
+          entity_id: light.balcony
+        data:
+          rgb_color:
+          - 0
+          - 255
+          - 0
+          brightness: 255
+        action: light.turn_on
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: "{{ not (\n  (now().month == 2 and now().day == 14) or\n  (now().month
+          == 3 and now().day == 17) or\n  (now().month == 5 and now().day >= 25 and
+          now().day <= 31 and now().weekday() == 0) or\n  (now().month == 7 and now().day
+          == 4) or\n  (now().month == 9 and now().day >= 1 and now().day <= 7 and
+          now().weekday() == 0) or\n  (now().month == 10 and now().day == 31) or\n
+          \ (now().month == 12 and now().day >= 24 and now().day <= 26)\n) }}"
+      sequence:
+      - target:
+          entity_id:
+          - light.front_door
+          - light.balcony
+        action: light.turn_on
+        data: {}
+      - target:
+          entity_id:
+          - scene.front_porch_zone_relax
+          - scene.spot_light_zone_relax
+        action: hue.activate_scene
+        data: {}
+  mode: single
+- id: '1748347157247'
+  alias: Loop Red White Blue Porch Lights
+  description: Loops porch lights through red, white, and blue while override is active.
+  triggers:
+  - entity_id: input_select.holiday_override
+    to: Red, White & Blue
+    trigger: state
+  conditions:
+  - condition: template
+    value_template: '{{ states(''input_select.holiday_override'') == ''Red, White
+      & Blue'' }}'
+  actions:
+  - action: notify.mobile_app_iphone15pro
+    metadata: {}
+    data:
+      message: The "Red, White & Blue" loop has started.
+  - repeat:
+      while:
+      - condition: template
+        value_template: '{{ states(''input_select.holiday_override'') == ''Red, White
+          & Blue'' }}'
+      sequence:
+      - target:
+          entity_id:
+          - light.front_door
+          - light.balcony
+        data:
+          rgb_color:
+          - 255
+          - 0
+          - 0
+          brightness: 255
+        action: light.turn_on
+      - delay: 00:00:05
+      - target:
+          entity_id:
+          - light.front_door
+          - light.balcony
+        data:
+          color_temp: 370
+          brightness: 255
+        action: light.turn_on
+      - delay: 00:00:05
+      - target:
+          entity_id:
+          - light.front_door
+          - light.balcony
+        data:
+          rgb_color:
+          - 0
+          - 0
+          - 255
+          brightness: 255
+        action: light.turn_on
+      - delay: 00:00:05
+  mode: restart
+- id: '1748347954055'
+  alias: Loop Halloween Porch Lights
+  description: ''
+  triggers:
+  - event: sunset
+    trigger: sun
+  - entity_id: input_select.holiday_override
+    to: Halloween
+    trigger: state
+  conditions:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: light.front_door
+      state: 'on'
+    - condition: template
+      value_template: "{{ now().month == 10 and now().day == 31 or\n   states('input_select.holiday_override')
+        == \"Halloween\" }}"
+  actions:
+  - action: notify.mobile_app_iphone15pro
+    metadata: {}
+    data:
+      message: The "Halloween" loop has started.
+  - target:
+      entity_id:
+      - light.front_door
+      - light.balcony
+    data:
+      rgb_color:
+      - 255
+      - 165
+      - 0
+      brightness: 255
+    action: light.turn_on
+  - delay: 00:00:05
+  - target:
+      entity_id:
+      - light.front_door
+      - light.balcony
+    data:
+      rgb_color:
+      - 128
+      - 0
+      - 128
+      brightness: 255
+    action: light.turn_on
+  - delay: 00:00:05
+  - target:
+      entity_id: automation.loop_halloween_porch_lights
+    action: automation.trigger
+    data:
+      skip_condition: true
+  mode: restart
+- id: '1748347979824'
+  alias: Loop Christmas Porch Lights
+  description: ''
+  triggers:
+  - event: sunset
+    trigger: sun
+  - entity_id: input_select.holiday_override
+    to: Christmas
+    trigger: state
+  conditions:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: light.front_door
+      state: 'on'
+    - condition: template
+      value_template: "{{ (now().month == 12 and now().day >= 24 and now().day <=
+        26) or\n   (states('input_select.holiday_override') == \"Christmas\") }}"
+  actions:
+  - action: notify.mobile_app_iphone15pro
+    metadata: {}
+    data:
+      message: The "Christmas" loop has started.
+  - target:
+      entity_id: light.front_door
+    data:
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      brightness: 255
+    action: light.turn_on
+  - target:
+      entity_id: light.balcony
+    data:
+      rgb_color:
+      - 0
+      - 255
+      - 0
+      brightness: 255
+    action: light.turn_on
+  - delay: 00:00:05
+  - target:
+      entity_id: light.front_door
+    data:
+      rgb_color:
+      - 0
+      - 255
+      - 0
+      brightness: 255
+    action: light.turn_on
+  - target:
+      entity_id: light.balcony
+    data:
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      brightness: 255
+    action: light.turn_on
+  - delay: 00:00:05
+  - target:
+      entity_id: automation.loop_christmas_porch_lights
+    action: automation.trigger
+    data:
+      skip_condition: true
+  mode: restart
+- id: '1651837086395'
+  alias: Yamaha Sonos
+  description: ''
+  triggers:
+  - entity_id:
+    - media_player.port
+    from: paused
+    to: playing
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: media_player.lg_tv
+    state: 'off'
+  actions:
+  - data: {}
+    target:
+      entity_id: media_player.tsr700
+    action: media_player.turn_on
+  - data:
+      source: Sonos
+    target:
+      entity_id: media_player.tsr700
+    action: media_player.select_source
+  - data:
+      volume_level: 0.38
+    target:
+      device_id: a940521e68176307d1f30c74faba30d8
+    action: media_player.volume_set
+  mode: single
+- id: '1669217949027'
+  alias: Xmas tree on
+  description: ''
+  triggers:
+  - event: sunrise
+    offset: 0
+    trigger: sun
+  conditions: []
+  actions:
+  - data: {}
+    action: switch.turn_on
+    target:
+      entity_id: switch.sonoff_1001712e46
+  mode: single
+- id: '1669218070019'
+  alias: Xmas tree off
+  description: ''
+  triggers:
+  - at: '21:00:00'
+    trigger: time
+  conditions: []
+  actions:
+  - data: {}
+    action: switch.turn_off
+    target:
+      entity_id: switch.sonoff_1001712e46
+  mode: single
+- id: '1748865469195'
+  alias: Yeti Reminder Daily
+  description: New Yeti Reminder Daily
+  triggers:
+  - at: 08:00:00
+    trigger: time
+  conditions:
+  - condition: time
+    after: 08:00:00
+    before: 08:05:00
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  actions:
+  - action: notify.mobile_app_judes_iphone15
+    data:
+      message: Yeti will be working today.
+  - action: notify.mobile_app_iphone15pro
+    data:
+      message: Yeti will be working today.
+  mode: single
+- id: '1748865872910'
+  alias: Turn on Yamaha
+  description: New Turn on Yamaha
+  triggers:
+  - entity_id:
+    - media_player.port
+    from: paused
+    to: playing
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 3
+    trigger: state
+  conditions: []
+  actions:
+  - data: {}
+    target:
+      entity_id: media_player.tsr700
+    action: media_player.turn_on
+  - data:
+      source: Sonos
+    target:
+      entity_id: media_player.tsr700
+    action: media_player.select_source
+  - data:
+      volume_level: 0.38
+    target:
+      device_id: a940521e68176307d1f30c74faba30d8
+    action: media_player.volume_set
+  mode: single
+- id: '1748865966495'
+  alias: TV Lights On
+  description: TV Lights On
+  triggers:
+  - entity_id:
+    - media_player.lg_tv
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+    trigger: state
+  conditions: []
+  actions:
+  - data:
+      brightness: 6
+      color_temp: 500
+    target:
+      entity_id:
+      - light.front_wall_north
+      - light.front_wall_middle
+      - light.halfwall_north
+      - light.halfwall_south
+      - light.front_wall_south
+    action: light.turn_on
+  - data:
+      brightness_pct: 65
+    target:
+      entity_id: light.tv_2
+    action: light.turn_on
+  mode: single
+- id: '1748866233457'
+  alias: TV Lights Off
+  description: TV Lights Off
+  triggers:
+  - entity_id:
+    - media_player.lg_tv
+    to: 'off'
+    from: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+    trigger: state
+  conditions: []
+  actions:
+  - data: {}
+    target:
+      entity_id:
+      - light.lightstrip
+      - light.front_wall_north
+      - light.front_wall_south
+      - light.front_wall_middle
+      - light.halfwall_north
+      - light.halfwall_south
+    action: light.turn_off
+  mode: single
+- id: '1748866316102'
+  alias: Turn Off Idle Yamaha
+  description: New Turn Off Idle Yamaha
+  triggers:
+  - entity_id:
+    - media_player.port
+    from: playing
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    to: paused
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: media_player.lg_tv
+    state: 'off'
+  actions:
+  - data: {}
+    target:
+      entity_id: media_player.tsr700
+    action: media_player.turn_off
+  mode: single
+- id: '1748866401193'
+  alias: Dryer Is Done
+  description: New Dryer Is Done
+  use_blueprint:
+    path: sbyx/notify-or-do-something-when-an-appliance-like-a-dishwasher-or-washing-machine-finishes.yaml
+    input:
+      power_sensor: sensor.sonoff_100153b7f9_current
+      starting_threshold: 3
+      finishing_threshold: 1
+      finishing_hysteresis: 1
+      actions:
+      - action: notify.mobile_app_iphone15pro
+        metadata: {}
+        data:
+          message: Dryer is done
+      - action: notify.mobile_app_judes_iphone15
+        metadata: {}
+        data:
+          message: Dryer is done
+      starting_hysteresis: 2
+- id: '1749210620810'
+  alias: Adjust Powerwall Backup Reserve Daily
+  triggers:
+  - at: '13:00:00'
+    id: morning
+    trigger: time
+  - at: '20:00:00'
+    id: evening
+    trigger: time
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: morning
+      sequence:
+      - data:
+          value: '20'
+        target:
+          entity_id: number.powerwall_backup_reserve
+        action: number.set_value
+    - conditions:
+      - condition: trigger
+        id: evening
+      sequence:
+      - data:
+          value: '10'
+        target:
+          entity_id: number.powerwall_backup_reserve
+        action: number.set_value
+  mode: single
+- id: '1749386807805'
+  alias: Astros Game Score (Front Wall Lights using sensors)
+  description: Blink lights based on Astros or opponent scoring, with dynamic opponent
+    color.
+  triggers:
+  - entity_id: sensor.team_tracker_astros
+    attribute: team_score
+    trigger: state
+  - entity_id: sensor.team_tracker_astros
+    attribute: opponent_score
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: device_tracker.device_tracker_iphone15pro
+    state: home
+  - condition: state
+    entity_id: media_player.lg_tv
+    state: 'on'
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: "{{ (trigger.to_state.attributes.team_score | int(0)) >\n
+          \  (trigger.from_state.attributes.team_score | int(0)) }}\n"
+      sequence:
+      - data:
+          scene_id: front_wall_south_before
+          snapshot_entities:
+          - light.front_wall_south
+        action: scene.create
+      - action: chime_tts.say
+        metadata: {}
+        data:
+          chime_path: /media/cheer_short.mp3
+        target:
+          device_id: 30de47243ee5bdd32035d709b7d2196d
+        enabled: false
+      - repeat:
+          count: 3
+          sequence:
+          - target:
+              entity_id: light.front_wall_south
+            data:
+              rgb_color:
+              - 255
+              - 106
+              - 0
+              brightness: 176
+            action: light.turn_on
+          - delay: 00:00:01
+          - target:
+              entity_id: light.front_wall_south
+            action: light.turn_off
+            data: {}
+          - delay: 00:00:01
+      - target:
+          entity_id: scene.front_wall_south_before
+        action: scene.turn_on
+        data: {}
+    - conditions:
+      - condition: template
+        value_template: "{{ (trigger.to_state.attributes.opponent_score | int(0))
+          >\n   (trigger.from_state.attributes.opponent_score | int(0)) }}\n"
+      sequence:
+      - data:
+          scene_id: front_wall_north_before
+          snapshot_entities:
+          - light.front_wall_north
+        action: scene.create
+      - repeat:
+          count: 3
+          sequence:
+          - data:
+              message: 'Using opponent RGB ({{ states(''input_select.opponent_color_mode'')
+                }}): {{ states(''sensor.opponent_light_rgb'') }}
+
+                '
+              level: warning
+            action: system_log.write
+          - target:
+              entity_id: light.front_wall_north
+            data:
+              rgb_color: '{{ states(''sensor.opponent_light_rgb'') | from_json }}
+
+                '
+              brightness: 175
+            action: light.turn_on
+          - delay: 00:00:01
+          - target:
+              entity_id: light.front_wall_north
+            action: light.turn_off
+            data: {}
+          - delay: 00:00:01
+      - target:
+          entity_id: scene.front_wall_north_before
+        action: scene.turn_on
+        data: {}
+  mode: single
+- id: '1749417910258'
+  alias: Restore Powerwall Reserve After Volvo Charging
+  description: Adjust reserve after Volvo finishes charging based on time of day.
+  triggers:
+  - entity_id:
+    - sensor.volvo_xc90_charging_power_status
+    to: power_available_but_not_activated
+    trigger: state
+  conditions: []
+  actions:
+  - data:
+      message: "✅ Volvo finished charging — Powerwall reserve restored to {{\n  10
+        if now().hour >= 20 or now().hour < 10 else 20 }}%.\n"
+    action: notify.mobile_app_iphone15pro
+  - target:
+      entity_id: number.powerwall_backup_reserve
+    data:
+      value: "{% set hour = now().hour %} {% if hour >= 20 or hour < 10 %}\n  10\n{%
+        else %}\n  20\n{% endif %}\n"
+    action: number.set_value
+  mode: single
+- id: '1749481003956'
+  alias: Lock Powerwall Reserve on Volvo Charging Start
+  description: Lock Powerwall reserve to current battery level when Volvo begins charging.
+  triggers:
+  - entity_id:
+    - sensor.volvo_xc90_charging_power_status
+    to: providing_power
+    trigger: state
+  conditions: []
+  actions:
+  - data:
+      message: "\U0001F697 Volvo started charging — Powerwall reserve locked at {{\n
+        \ states('sensor.powerwall_battery') | int }}%.\n"
+    action: notify.mobile_app_iphone15pro
+  - target:
+      entity_id: number.powerwall_backup_reserve
+    data:
+      value: '{{ states(''sensor.powerwall_battery'') | int }}
+
+        '
+    action: number.set_value
+  mode: single
+- id: '1749912418946'
+  alias: Reset Daily Steps and Archive to 'Yesterday'
+  triggers:
+  - at: 00:00:00
+    trigger: time
+  actions:
+  - target:
+      entity_id: input_number.steps_yesterday
+    data:
+      value: '{{ states(''input_number.steps'') | int }}'
+    action: input_number.set_value
+  - target:
+      entity_id: input_number.steps
+    data:
+      value: 0
+    action: input_number.set_value
+  mode: single
+- id: '1750068933449'
+  alias: Save Steps to Daily Input Number
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    minutes: /5
+  conditions: []
+  actions:
+  - variables:
+      weekday: '{{ now().strftime(''%A'') | lower }}'
+      sensor_value: '{{ states(''sensor.daily_steps'') | int }}'
+  - target:
+      entity_id: "{% set map = {\n  'monday': 'input_number.steps_monday',\n  'tuesday':
+        'input_number.steps_tuesday',\n  'wednesday': 'input_number.steps_wednesday',\n
+        \ 'thursday': 'input_number.steps_thursday',\n  'friday': 'input_number.steps_friday',\n
+        \ 'saturday': 'input_number.steps_saturday',\n  'sunday': 'input_number.steps_sunday'\n}
+        %} {{ map[weekday] }}\n"
+    data:
+      value: '{{ sensor_value }}'
+    action: input_number.set_value
+  mode: single
+- id: '1750622241429'
+  alias: Fan off @ 7pm
+  description: ''
+  triggers:
+  - trigger: time
+    at: '19:00:00'
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: c66b3aec119b4902a0941f7398df42fe
+    entity_id: 796eb0ec8f19157b876d25aacf72e00f
+    domain: fan
+  mode: single
+- id: '1750772277487'
+  alias: Make sure fan is off if garage door closed
+  description: ''
+  triggers:
+  - device_id: 0fba8e53860f5962ed8c711050dffa5a
+    domain: cover
+    entity_id: 46ca5019f85da5a9daf980a5edd4c354
+    type: closed
+    trigger: device
+    for:
+      hours: 0
+      minutes: 2
+      seconds: 0
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: c66b3aec119b4902a0941f7398df42fe
+    entity_id: 796eb0ec8f19157b876d25aacf72e00f
+    domain: fan
+  mode: single
+- id: '1750846644672'
+  alias: Cool garage morning
+  description: ''
+  triggers:
+  - trigger: event
+    event_type: Cool garage in morning
+    context:
+      user_id:
+      - e92756e3f2f4465980fe2e01730e3d86
+  conditions: []
+  actions:
+  - action: cover.open_cover
+    metadata: {}
+    data: {}
+    target:
+      device_id: 0fba8e53860f5962ed8c711050dffa5a
+  - type: turn_on
+    device_id: c66b3aec119b4902a0941f7398df42fe
+    entity_id: 796eb0ec8f19157b876d25aacf72e00f
+    domain: fan
+  mode: single
+- id: '1751199764273'
+  alias: Cleanup Garage Snapshots
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    minutes: /5
+  conditions: []
+  actions:
+  - action: shell_command.cleanup_garage_snapshots
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1751291352628'
+  alias: Garage Motion - Save and Update Snapshot
+  description: ''
+  triggers:
+  - entity_id: binary_sensor.eye2_person_detection
+    to: 'on'
+    trigger: state
+  actions:
+  - target:
+      device_id: b522732e21a47c9e988d07886f637240
+    data:
+      filename: /config/www/garage_notification.jpg_{{ now().strftime('%Y%m%d%H%M%S')
+        }}.jpg
+    action: camera.snapshot
+  - delay: 00:00:01
+  - action: shell_command.copy_latest_garage_snapshot
+    data: {}
+  - action: notify.mobile_app_iphone15pro
+    metadata: {}
+    data:
+      message: Motion detected in garage.
+      data:
+        url: /lovelace/garage
+        tag: person
+  mode: single
+- id: '1751378467930'
+  alias: Now Playing Notification (any Sonos Speaker)
+  description: Notify when a Sonos speaker starts playing a new track
+  triggers:
+  - entity_id:
+    - media_player.roam
+    - media_player.office
+    - media_player.dining_room
+    - media_player.master_bedroom
+    - media_player.bathroom
+    - media_player.garage
+    - media_player.guest_room
+    - media_player.porch
+    - media_player.midarm_room
+    - media_player.piecing_room
+    - media_player.port
+    attribute: media_title
+    trigger: state
+  conditions:
+  - condition: template
+    value_template: '{{ trigger is defined and trigger.to_state.state == ''playing''
+      }}
+
+      '
+  actions:
+  - data:
+      message: '{% set entity = trigger.entity_id if trigger is defined else ''media_player.office''
+        %} Song: {{ state_attr(entity, ''media_title'') }} Artist: {{ state_attr(entity,
+        ''media_artist'') }}
+
+        '
+      data:
+        tag: Song
+    action: notify.mobile_app_iphone15pro
+  - action: notify.mobile_app_ha_on_ipad
+    data:
+      message: '{% set entity = trigger.entity_id if trigger is defined else ''media_player.office''
+        %} Song: {{ state_attr(entity, ''media_title'') }} Artist: {{ state_attr(entity,
+        ''media_artist'') }}'
+      data:
+        tag: Song
+    enabled: false
+  mode: single
+- id: '1751575293610'
+  alias: Garage door open and both away 15 minutes (test)
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - device_tracker.device_tracker_iphone15pro
+    - device_tracker.device_tracker_judes_iphone15
+    to: away
+    for:
+      seconds: 10
+  conditions:
+  - condition: template
+    value_template: "{{ is_state('device_tracker.device_tracker_iphone15pro', 'away')
+      and\n   is_state('device_tracker.device_tracker_judes_iphone15', 'away') }}"
+  - condition: device
+    device_id: 0fba8e53860f5962ed8c711050dffa5a
+    domain: cover
+    entity_id: 46ca5019f85da5a9daf980a5edd4c354
+    type: is_open
+  actions:
+  - data:
+      title: Garage still open
+      message: You're both away. Close the garage door?
+    action: notify.mobile_app_iphone15pro
+  mode: single
+- id: '1751575517997'
+  alias: Close Garage From Notification
+  description: ''
+  triggers:
+  - event_type: mobile_app_notification_action
+    event_data:
+      action: CLOSE_GARAGE
+    trigger: event
+  conditions:
+  - condition: state
+    state: open
+    entity_id: cover.ratgdov25i_dbfe79_door
+  actions:
+  - action: cover.close_cover
+    data: {}
+    target:
+      device_id: 0fba8e53860f5962ed8c711050dffa5a
+  mode: single
+- id: '1752498418678'
+  alias: Notify when critical integration entities become unavailable
+  description: Sends a mobile alert if one of the listed integration entities goes
+    unavailable
+  triggers:
+  - entity_id: sensor.powerwall_tg123086000yj3_grid_state
+    to: unavailable
+    for: 00:05:00
+    trigger: state
+  - entity_id: sensor.ewelink_th01_temperature
+    to: unavailable
+    for: 00:05:00
+    trigger: state
+  - trigger: state
+    entity_id:
+    - device_tracker.the_eye
+    to: unavailable
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: sensor.powerwall_tg123086000yj3_grid_state
+        state: unavailable
+      sequence:
+      - data:
+          message: ⚠️ Powerwall Grid State is unavailable.
+        action: notify.mobile_app_iphone15pro
+    - conditions:
+      - condition: state
+        entity_id: sensor.ewelink_th01_temperature
+        state: unavailable
+      sequence:
+      - data:
+          message: ⚠️ TH01 Temperature sensor is unavailable.
+        action: notify.mobile_app_iphone15pro
+    - conditions:
+      - condition: state
+        entity_id: device_tracker.the_eye
+        state: unavailable
+      sequence:
+      - data:
+          message: ⚠️ The Eye unavailable
+        action: notify.mobile_app_iphone15pro
+  mode: queued
+- id: '1753879736460'
+  alias: Save Current Track Info
+  description: Append current Sonos track info to input_text.saved_tracks when button
+    pressed
+  triggers:
+  - entity_id: input_button.save_track
+    trigger: state
+  actions:
+  - variables:
+      media_player: media_player.office
+      timestamp: '{{ now().strftime(''%Y-%m-%d %H:%M:%S'') }}'
+      current_text: '{{ states(''input_text.saved_tracks'') | replace(''unknown'',
+        '''') | trim }}'
+      title: '{{ state_attr(media_player, ''media_title'') | default(''Unknown Title'')
+        }}'
+      artist: '{{ state_attr(media_player, ''media_artist'') | default(''Unknown Artist'')
+        }}'
+      album: '{{ state_attr(media_player, ''media_album_name'') | default(''Unknown
+        Album'') }}'
+      new_line: '{{ timestamp }} - {{ title }} by {{ artist }} ({{ album }})'
+  - target:
+      entity_id: input_text.saved_tracks
+    data:
+      value: '{{ current_text ~ ''\n'' ~ new_line }}
+
+        '
+    action: input_text.set_value
+- id: '1754071714272'
+  alias: Cycle Apple Music Stations (original)
+  triggers:
+  - entity_id: input_boolean.apple_music_cycling
+    to: 'on'
+    trigger: state
+  actions:
+  - repeat:
+      while:
+      - condition: state
+        entity_id: input_boolean.apple_music_cycling
+        state: 'on'
+      sequence:
+      - repeat:
+          for_each: '{{ stations }}'
+          sequence:
+          - target:
+              entity_id: '{{ media_player }}'
+            data:
+              media_content_id: '{{ repeat.item.id }}'
+              media_content_type: favorite_item_id
+            action: media_player.play_media
+          - wait_for_trigger:
+            - value_template: '{{ state_attr(media_player, ''queue_position'') | int(0)
+                >= 4 }}
+
+                '
+              trigger: template
+            timeout: 00:59:00
+            continue_on_timeout: true
+          - choose:
+            - conditions:
+              - condition: state
+                entity_id: input_boolean.apple_music_cycling
+                state: 'off'
+              sequence:
+              - stop: Stopped cycling due to toggle being turned off
+  variables:
+    media_player: media_player.office
+    stations:
+    - name: Americana
+      id: FV:2/423
+    - name: Classic Soul
+      id: FV:2/421
+    - name: Discovery Station
+      id: FV:2/281
+    - name: Garage Rock
+      id: FV:2/424
+    - name: Outlaw Country
+      id: FV:2/422
+    - name: My Station
+      id: FV:2/226
+    - name: Blues
+      id: FV:2/440
+    - name: Classic Rock
+      id: FV:2/441
+    - name: Big Band Sounds & Similar Artists Station
+      id: FV:2/453
+    - name: Classic Alternative Station
+      id: FV:2/452
+    - name: Mellow Rock Station
+      id: FV:2/451
+  mode: single
+- id: '1754141837839'
+  alias: Log Sonos Media Info on Title Change
+  description: Logs queue position, channel, and artist to file when media_title changes
+    on Sonos Office
+  triggers:
+  - entity_id: media_player.office
+    attribute: media_title
+    trigger: state
+  conditions: []
+  actions:
+  - target:
+      entity_id: notify.file
+    data:
+      message: 'Queue Position: {{ state_attr(''media_player.office'', ''queue_position'')
+        if state_attr(''media_player.office'', ''queue_position'') is not none else
+        ''unknown'' }}, Channel: {{ state_attr(''media_player.office'', ''media_channel'')
+        or ''unknown'' }}, Artist: {{ state_attr(''media_player.office'', ''media_artist'')
+        or ''unknown'' }}'
+    action: notify.send_message
+  mode: single
+- id: '1754306455892'
+  alias: Log Sonos Favorite Name and ID
+  triggers:
+  - entity_id: media_player.office
+    attribute: media_content_id
+    trigger: state
+  conditions:
+  - condition: template
+    value_template: '{{ state_attr(''media_player.office'', ''media_content_id'')
+      is not none }}'
+  actions:
+  - target:
+      entity_id: notify.file
+    data:
+      message: 'Favorite Name: {{ state_attr(''media_player.office'', ''media_channel'')
+        or state_attr(''media_player.office'', ''source'') or state_attr(''media_player.office'',
+        ''media_title'') or ''Unknown'' }}, Favorite ID: {{ state_attr(''media_player.office'',
+        ''media_content_id'') }}'
+    action: notify.send_message
+  mode: queued
+- id: '1754337453449'
+  alias: Now Playing Notification (with sound)
+  description: Notify when a Sonos speaker starts playing a new track
+  triggers:
+  - entity_id:
+    - media_player.roam
+    - media_player.office
+    - media_player.dining_room
+    - media_player.master_bedroom
+    - media_player.bathroom
+    - media_player.garage
+    - media_player.guest_room
+    - media_player.porch
+    - media_player.midarm_room
+    - media_player.piecing_room
+    - media_player.port
+    attribute: media_title
+    trigger: state
+  conditions:
+  - condition: template
+    value_template: '{{ trigger is defined and trigger.to_state.state == ''playing''
+      }}
+
+      '
+  actions:
+  - data:
+      message: '{% set entity = trigger.to_state.entity_id if trigger is defined else
+        ''media_player.office'' %} Song: {{ state_attr(entity, ''media_title'') or
+        ''Unknown Title'' }} Artist: {{ state_attr(entity, ''media_artist'') or ''Unknown
+        Artist'' }}
+
+        '
+      data:
+        tag: Song
+        push:
+          sound:
+            name: Ladder.caf
+            critical: 1
+            volume: 1
+    action: notify.mobile_app_iphone15pro
+  - data:
+      message: '{% set entity = trigger.to_state.entity_id if trigger is defined else
+        ''media_player.office'' %} Song: {{ state_attr(entity, ''media_title'') or
+        ''Unknown Title'' }} Artist: {{ state_attr(entity, ''media_artist'') or ''Unknown
+        Artist'' }}
+
+        '
+      data:
+        tag: Song
+        push:
+          sound:
+            name: fanfare.caf
+    enabled: false
+    action: notify.mobile_app_ha_on_ipad
+  mode: single
+- id: '1754655816015'
+  alias: Cycle Apple Music Stations (random starting station)
+  triggers:
+  - entity_id: input_boolean.apple_music_cycling
+    to: 'on'
+    trigger: state
+  actions:
+  - repeat:
+      while:
+      - condition: state
+        entity_id: input_boolean.apple_music_cycling
+        state: 'on'
+      sequence:
+      - repeat:
+          for_each: '{{ stations }}'
+          sequence:
+          - target:
+              entity_id: '{{ media_player }}'
+            data:
+              media_content_id: '{{ repeat.item.id }}'
+              media_content_type: favorite_item_id
+            action: media_player.play_media
+          - wait_for_trigger:
+            - value_template: '{{ state_attr(media_player, ''queue_position'') | int(0)
+                >= 4 }}
+
+                '
+              trigger: template
+            timeout: 00:59:00
+            continue_on_timeout: true
+          - choose:
+            - conditions:
+              - condition: state
+                entity_id: input_boolean.apple_music_cycling
+                state: 'off'
+              sequence:
+              - stop: Stopped cycling due to toggle being turned off
+  variables:
+    media_player: media_player.office
+    stations_raw:
+    - name: Americana
+      id: FV:2/423
+    - name: Classic Soul
+      id: FV:2/421
+    - name: Discovery Station
+      id: FV:2/281
+    - name: Garage Rock
+      id: FV:2/424
+    - name: Outlaw Country
+      id: FV:2/422
+    - name: My Station
+      id: FV:2/226
+    - name: Blues
+      id: FV:2/440
+    - name: Classic Rock
+      id: FV:2/441
+    - name: Big Band Sounds & Similar Artists Station
+      id: FV:2/453
+    - name: Classic Alternative Station
+      id: FV:2/452
+    - name: Mellow Rock Station
+      id: FV:2/451
+    stations: '{{ stations_raw | shuffle }}
+
+      '
+  mode: single
+- id: '1754830173544'
+  alias: Cycle Apple Music Stations (with media_duration counter)
+  description: ''
+  triggers:
+  - entity_id: input_boolean.apple_music_cycling
+    to: 'on'
+    trigger: state
+  actions:
+  - repeat:
+      while:
+      - condition: state
+        entity_id: input_boolean.apple_music_cycling
+        state: 'on'
+      sequence:
+      - repeat:
+          for_each: '{{ stations }}'
+          sequence:
+          - target:
+              entity_id: input_number.songs_played
+            data:
+              value: 0
+            action: input_number.set_value
+          - target:
+              entity_id: '{{ media_player }}'
+            data:
+              media_content_id: '{{ repeat.item.id }}'
+              media_content_type: favorite_item_id
+            action: media_player.play_media
+          - delay:
+              seconds: 5
+          - repeat:
+              while:
+              - condition: template
+                value_template: '{{ states(''input_number.songs_played'') | int <
+                  3 }}'
+              sequence:
+              - variables:
+                  duration: '{{ state_attr(media_player, ''media_duration'') | int(30)
+                    }}'
+              - delay:
+                  seconds: '{{ duration + 2 }}'
+              - data:
+                  entity_id: input_number.songs_played
+                  value: '{{ states(''input_number.songs_played'') | int + 1 }}'
+                action: input_number.set_value
+          - choose:
+            - conditions:
+              - condition: state
+                entity_id: input_boolean.apple_music_cycling
+                state: 'off'
+              sequence:
+              - stop: Stopped cycling due to toggle being turned off
+  variables:
+    media_player: media_player.office
+    stations:
+    - name: Americana
+      id: FV:2/423
+    - name: Classic Soul
+      id: FV:2/421
+    - name: Discovery Station
+      id: FV:2/281
+    - name: Garage Rock
+      id: FV:2/424
+    - name: Outlaw Country
+      id: FV:2/422
+    - name: My Station
+      id: FV:2/226
+    - name: Blues
+      id: FV:2/440
+    - name: Classic Rock
+      id: FV:2/441
+    - name: Big Band Sounds
+      id: FV:2/453
+    - name: Classic Alternative
+      id: FV:2/452
+    - name: Mellow Rock
+      id: FV:2/451
+  mode: single
+- id: '1755604941549'
+  alias: Astros Game Score (Front Wall Lights using sensors with logging)
+  description: Blink lights based on Astros or opponent scoring, with dynamic opponent
+    color and optional logging.
+  triggers:
+  - entity_id: sensor.team_tracker_astros
+    attribute: team_score
+    trigger: state
+  - entity_id: sensor.team_tracker_astros
+    attribute: opponent_score
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: device_tracker.device_tracker_iphone15pro
+    state: home
+  - condition: state
+    entity_id: media_player.lg_tv
+    state: 'on'
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: "{{ (trigger.to_state.attributes.team_score | int(0)) >\n
+          \  (trigger.from_state.attributes.team_score | int(0)) }}\n"
+      sequence:
+      - data:
+          scene_id: front_wall_south_before
+          snapshot_entities:
+          - light.front_wall_south
+        action: scene.create
+      - action: chime_tts.say
+        metadata: {}
+        data:
+          chime_path: /media/cheer_short.mp3
+        target:
+          device_id: 30de47243ee5bdd32035d709b7d2196d
+        enabled: false
+      - repeat:
+          count: 3
+          sequence:
+          - target:
+              entity_id: light.front_wall_south
+            data:
+              rgb_color:
+              - 255
+              - 106
+              - 0
+              brightness: 176
+            action: light.turn_on
+          - delay: 00:00:01
+          - target:
+              entity_id: light.front_wall_south
+            action: light.turn_off
+          - delay: 00:00:01
+      - target:
+          entity_id: scene.front_wall_south_before
+        action: scene.turn_on
+    - conditions:
+      - condition: template
+        value_template: "{{ (trigger.to_state.attributes.opponent_score | int(0))
+          >\n   (trigger.from_state.attributes.opponent_score | int(0)) }}\n"
+      sequence:
+      - data:
+          scene_id: front_wall_north_before
+          snapshot_entities:
+          - light.front_wall_north
+        action: scene.create
+      - repeat:
+          count: 3
+          sequence:
+          - choose:
+            - conditions:
+              - condition: state
+                entity_id: input_boolean.log_opponent_events
+                state: 'on'
+              sequence:
+              - target:
+                  entity_id: notify.file
+                data:
+                  message: 'Using opponent RGB ({{ states(''input_select.opponent_color_mode'')
+                    }}): {{ states(''sensor.opponent_light_rgb'') }}
+
+                    '
+                action: notify.send_message
+          - target:
+              entity_id: light.front_wall_north
+            data:
+              rgb_color: '{{ states(''sensor.opponent_light_rgb'') | from_json }}
+
+                '
+              brightness: 175
+            action: light.turn_on
+          - delay: 00:00:01
+          - target:
+              entity_id: light.front_wall_north
+            action: light.turn_off
+          - delay: 00:00:01
+      - target:
+          entity_id: scene.front_wall_north_before
+        action: scene.turn_on
+  mode: single
+- id: '1756132826400'
+  alias: Router Partition
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.router_main_jffs_usage
+    above: 75
+  conditions: []
+  actions:
+  - action: notify.mobile_app_iphone15pro
+    metadata: {}
+    data:
+      message: Check router partition.
+  mode: single

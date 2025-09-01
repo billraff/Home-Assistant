@@ -1,0 +1,100 @@
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Media source
+media_source:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+# Logging levels
+logger:
+  default: error
+  logs:
+    homeassistant.components.onvif: critical
+    custom_components.icloud3: critical
+    homeassistant.components.mobile_app.notify: critical
+    homeassistant.components.wled: critical
+
+# Includes
+group: !include groups.yaml
+script: !include scripts.yaml
+sensor: !include sensors.yaml
+scene: !include scenes.yaml
+automation: !include automations.yaml
+template: !include templates.yaml
+
+# Themes
+frontend:
+  themes: !include_dir_merge_named themes/
+
+# Home Assistant packages
+homeassistant:
+  packages: !include_dir_named packages
+
+# API access
+api:
+
+# FFmpeg support
+ffmpeg:
+
+# Shell commands
+shell_command:
+  cleanup_doorbell_snapshots: "ls -t /config/www/doorbell_notification.jpg_*.jpg | tail -n +11 | xargs rm -f"
+  cleanup_garage_snapshots: "ls -t /config/www/garage_notification.jpg_*.jpg | tail -n +11 | xargs rm -f"
+  copy_latest_garage_snapshot: /bin/bash /config/copy_latest_garage_snapshot.sh
+
+# AWTRIX integration
+awtrix:
+
+# Recorder config
+recorder:
+  exclude:
+    entity_globs:
+      - sensor.team_tracker_*
+      - light.garage_light
+
+# Custom panels
+panel_custom:
+  - name: config/logs
+    sidebar_title: Logs
+    sidebar_icon: mdi:math-log
+    module_url: https://10.27.18.8:8123/config/logs
+    embed_iframe: true
+    require_admin: true
+    config:
+      ingress: Logs
+  - name: panel_integrations
+    sidebar_title: Integrations
+    sidebar_icon: mdi:audio-input-rca
+    url_path: 'config/integrations'
+    module_url: /api/hassio/app/entrypoint.js
+    embed_iframe: true
+    require_admin: true
+  - name: panel_automations
+    sidebar_title: Automations
+    sidebar_icon: mdi:cogs
+    url_path: 'config/automation'
+    module_url: /api/hassio/app/entrypoint.js
+    embed_iframe: true
+    require_admin: true
+    
+    
+# Command-line sensors for router JFFS usage
+command_line:
+  - sensor:
+      name: Router_Main_JFFS_Usage
+      unique_id: router_main_jffs_usage
+      command: >
+        ssh -i /config/.ssh/id_rsa -o StrictHostKeyChecking=no -p 2222 ranch@192.168.87.1 \
+        "echo -n \$(date '+%Y-%m-%d %H:%M:%S')' '; df -h /jffs | tail -1 | awk '{print \$5}' | tr -d '%'"
+      scan_interval: 14400
+
+  - sensor:
+      name: Router_Node_JFFS_Usage
+      unique_id: router_node_jffs_usage
+      command: >
+        ssh -i /config/.ssh/id_rsa -o StrictHostKeyChecking=no -p 2222 ranch@192.168.87.59 \
+        "echo -n \$(date '+%Y-%m-%d %H:%M:%S')' '; df -h /jffs | tail -1 | awk '{print \$5}' | tr -d '%'"
+      scan_interval: 14500
